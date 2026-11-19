@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amos Osaze Abu — Digital Product Designer</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    :root {
+      --bg-cream: #f8f6f3;
+      --surface-stone: #ebe9e4;
+      --surface-card: #ffffff;
+      --deep-teal: #025f6e;
+      --deep-teal-dark: #01434e;
+      --electric-orange: #ff5900;
+      --charcoal: #192021;
+      --slate-muted: #5e6667;
+      --border-subtle: rgba(2, 95, 110, 0.12);
+      --card-bg-subtle: #f4f2ee;
+    }
+
+    html.dark {
+      --bg-cream: #0c1011;
+      --surface-stone: #151a1b;
+      --surface-card: #1b2123;
+      --deep-teal: #1bb3cc;
+      --deep-teal-dark: #128a9e;
+      --electric-orange: #ff6a1a;
+      --charcoal: #f0f4f5;
+      --slate-muted: #8e9a9c;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --card-bg-subtle: #14191a;
+    }
+    
+    body {
+      background-color: var(--bg-cream);
+      color: var(--charcoal);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    ::selection {
+      background-color: var(--electric-orange);
+      color: #ffffff;
+    }
+
+    .font-serif-editorial {
+      font-family: "Playfair Display", "New York", "Didot", "Georgia", serif;
+      font-style: italic;
+    }
+
+    /* Carousel smooth scroll and marquee */
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: flex;
+      width: 200%;
+      animation: marquee 24s linear infinite;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+
+    /* Draggable Stream Track (Olamide & Dennis Snellenberg Style) */
+    .stream-track-draggable {
+      display: flex;
+      gap: 1.5rem;
+      width: max-content;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      will-change: transform;
+    }
+    .stream-track-draggable.is-dragging {
+      cursor: grabbing;
+    }
+    .stream-track-draggable * {
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+    .stream-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      flex-shrink: 0;
+      border: none;
+      background-color: var(--surface-stone);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+    .stream-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    }
+    .stream-card img {
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
+    .stream-card:hover img {
+      transform: scale(1.05);
+    }
+    .stream-card-overlay {
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Subtle photo tilt on hover */
+    .photo-card {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+    }
+    .photo-card:hover {
+      transform: translateY(-6px) rotate(0deg) scale(1.02);
+      box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.25);
+      z-index: 20;
+    }
+
+    /* Work Mockup Card Hover Zoom (Borderless for clean dark mode) */
+    .work-tile {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.25rem;
+      border: none;
+      background-color: var(--card-bg-subtle);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+    }
+    .work-tile:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.25);
+    }
+    .work-tile img {
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .work-tile:hover img {
+      transform: scale(1.04);
+    }
+    .work-overlay {
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .work-info-pill {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-[var(--charcoal)] antialiased relative overflow-x-hidden">
+
+  <!-- FIXED FLOATING THEME TOGGLE (Olamide Oladehinde Style) -->
+  <aside class="fixed bottom-6 right-6 z-50">
+    <div class="p-1 rounded-full bg-[var(--surface-stone)]/80 backdrop-blur-md border border-[var(--border-subtle)] shadow-xl flex items-center gap-1">
+      <button 
+        id="theme-light-btn"
+        onclick="setTheme('light')" 
+        class="w-8 h-8 rounded-full flex items-center justify-center transition-all text-xs"
+        title="Light theme"
+        aria-label="Light theme">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5" stroke-width="2"></circle>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+        </svg>
+      </button>
+      <button 
+        id="theme-dark-btn"
+        onclick="setTheme('dark')" 
+        class="w-8 h-8 rounded-full flex items-center justify-center transition-all text-xs text-[var(--slate-muted)] hover:text-[var(--charcoal)]"
+        title="Dark theme"
+        aria-label="Dark theme">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- NAVIGATION HEADER (Cleaned: No availability, no location, no time) -->
+  <header class="w-full max-w-7xl mx-auto px-6 py-8 flex items-center justify-between text-sm sticky top-0 z-40 bg-[var(--bg-cream)]/90 backdrop-blur-md border-b border-[var(--border-subtle)]/40">
+    <!-- Brand Wordmark -->
+    <a href="#" class="group flex items-center gap-3">
+      <div class="w-2.5 h-2.5 rounded-full bg-[var(--electric-orange)]"></div>
+      <div>
+        <span class="font-bold tracking-tight text-base text-[var(--charcoal)] group-hover:text-[var(--deep-teal)] transition-colors">Amos O. Abu</span>
+        <span class="text-xs text-[var(--slate-muted)] block font-mono">Digital Product Designer</span>
+      </div>
+    </a>
+
+    <!-- Navigation Links & CTA -->
+    <nav class="flex items-center gap-5 sm:gap-7">
+      <a href="#works" class="text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors">Works</a>
+      <a href="#capabilities" class="text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors">Capabilities</a>
+      <a href="#about" class="hidden sm:inline-block text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors">Behind The Canvas</a>
+      <a href="https://bit.ly/amos-abu-cv" target="_blank" class="hidden sm:inline-block text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors">Resume ↗</a>
+      <a href="#contact" class="px-5 py-2.5 rounded-full bg-[var(--deep-teal)] text-white text-xs font-medium tracking-wide hover:bg-[var(--deep-teal-dark)] transition-all transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm flex items-center gap-2">
+        <span>Chat with me</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+      </a>
+    </nav>
+  </header>
+
+  <!-- 1. HERO SECTION (Reduced Typography Scale) -->
+  <main class="max-w-7xl mx-auto px-6 pt-16 pb-20">
+    <div class="max-w-4xl">
+      <!-- Eyebrow Pill -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--surface-stone)] border border-[var(--border-subtle)] text-xs font-mono mb-8">
+        <span class="text-[var(--electric-orange)] font-bold">●</span>
+        <span class="text-[var(--charcoal)] font-medium">This is Amos</span>
+        <span class="opacity-40">•</span>
+        <span class="text-[var(--slate-muted)]">I solve real problems through thoughtful designs!</span>
+      </div>
+
+      <!-- Reduced Headline Scale with Increased Line Height and Bold Accent -->
+      <h1 class="text-2xl sm:text-4xl md:text-[2.75rem] lg:text-[3.15rem] font-medium tracking-tight text-[var(--charcoal)] leading-[1.42] sm:leading-[1.38] md:leading-[1.35] mb-8">
+        A <span class="font-serif-editorial text-[var(--deep-teal)] font-bold">Digital Product Designer</span> passionate about shaping digital solutions that drive impact, usability, and growth.
+      </h1>
+
+      <!-- Value Proposition Statement -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start pt-6 border-t border-[var(--border-subtle)]">
+        <p class="md:col-span-8 text-base sm:text-lg text-[var(--slate-muted)] leading-relaxed font-normal">
+          Whether it’s creating an MVP that converts or crafting solutions that address core user needs, my approach balances empathy with strategic impact, focusing on outcomes rather than just aesthetics.
+        </p>
+
+        <!-- Quick Credentials Summary -->
+        <div class="md:col-span-4 flex flex-col gap-3 font-mono text-xs">
+          <div class="flex items-center justify-between pb-2 border-b border-[var(--border-subtle)]">
+            <span class="text-[var(--slate-muted)]">Location</span>
+            <span class="text-[var(--charcoal)] font-semibold">Lagos, NG (Worldwide)</span>
+          </div>
+          <div class="flex items-center justify-between pb-2 border-b border-[var(--border-subtle)]">
+            <span class="text-[var(--slate-muted)]">Core Disciplines</span>
+            <span class="text-[var(--charcoal)] font-semibold">UX, UI & Vibecoding</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[var(--slate-muted)]">Client Trust</span>
+            <span class="text-[var(--deep-teal)] font-semibold">100% Founder Recommended</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 2. SNEAK PEEK OF MY WORKS (Draggable Stream — Olamide & Dennis Snellenberg Style) -->
+  <section class="py-16 border-t border-[var(--border-subtle)] bg-[var(--surface-stone)]/30 overflow-hidden relative">
+
+    <div class="max-w-7xl mx-auto px-6 mb-8 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="w-2.5 h-2.5 rounded-full bg-[var(--electric-orange)] inline-block animate-pulse"></span>
+        <h2 class="text-sm font-mono uppercase tracking-widest text-[var(--charcoal)] font-semibold">
+          Sneak peek of my works
+        </h2>
+      </div>
+    </div>
+
+    <!-- ROW 1: Web Applications (Draggable Left/Right) -->
+    <div class="mb-8 relative">
+      <!-- Track Wrapper with Contained Edge Gradient Fades -->
+      <div class="relative w-full overflow-hidden py-2">
+        <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-[var(--bg-cream)] to-transparent z-20"></div>
+        <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-[var(--bg-cream)] to-transparent z-20"></div>
+
+        <div id="web-stream-track" class="stream-track-draggable">
+          
+          <!-- Web 1: ClauseCore -->
+          <div class="stream-card w-[400px] sm:w-[480px] md:w-[540px] h-[260px] sm:h-[310px] md:h-[350px] rounded-2xl group" onclick="openSnapshotModal('snapshots/clausecore_hero_section.jpg', 'ClauseCore Hero Section', 'Legal AI SaaS • Web Platform', 'Modern contract intelligence & automated compliance workflow')">
+            <img src="snapshots/clausecore_hero_section.jpg" alt="ClauseCore Hero Section" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 p-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono text-white tracking-wide">Legal AI SaaS</span>
+                <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">ClauseCore Hero Section</h3>
+                <p class="text-xs text-white/70 line-clamp-1 mt-1 font-sans">Modern contract intelligence & automated compliance workflow</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Web 2: Lexa -->
+          <div class="stream-card w-[400px] sm:w-[480px] md:w-[540px] h-[260px] sm:h-[310px] md:h-[350px] rounded-2xl group" onclick="openSnapshotModal('snapshots/lexa_hero_section_1.jpg', 'Lexa Landing Page', 'Product Marketing • Web Experience', 'High-conversion hero section with dynamic interactive components')">
+            <img src="snapshots/lexa_hero_section_1.jpg" alt="Lexa Landing Page" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 p-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono text-white tracking-wide">Product Landing</span>
+                <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">Lexa AI Platform</h3>
+                <p class="text-xs text-white/70 line-clamp-1 mt-1 font-sans">High-conversion hero section with dynamic interactive components</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Web 3: Azure Voyages (Hero 1) -->
+          <div class="stream-card w-[400px] sm:w-[480px] md:w-[540px] h-[260px] sm:h-[310px] md:h-[350px] rounded-2xl group" onclick="openSnapshotModal('snapshots/hero_1.jpg', 'Azure Voyages', 'Luxury Travel & Yacht Expeditions • Web Experience', 'Curated private yacht expeditions, island itineraries and bespoke bookings')">
+            <img src="snapshots/hero_1.jpg" alt="Azure Voyages Luxury Travel" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 p-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono text-white tracking-wide">Bespoke Travel</span>
+                <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">Azure Voyages</h3>
+                <p class="text-xs text-white/70 line-clamp-1 mt-1 font-sans">Curated private yacht expeditions, island itineraries and bespoke bookings</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Web 4: VortexPay (Hero 5) -->
+          <div class="stream-card w-[400px] sm:w-[480px] md:w-[540px] h-[260px] sm:h-[310px] md:h-[350px] rounded-2xl group" onclick="openSnapshotModal('snapshots/hero_5.jpg', 'VortexPay Platform', 'Wealth Analytics & Treasury • Fintech Web', 'Real-time asset tracking, multi-asset liquidity and automated capital allocation')">
+            <img src="snapshots/hero_5.jpg" alt="VortexPay Fintech Platform" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 p-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono text-white tracking-wide">Fintech Wealth</span>
+                <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">VortexPay Platform</h3>
+                <p class="text-xs text-white/70 line-clamp-1 mt-1 font-sans">Real-time asset tracking, multi-asset liquidity and automated capital allocation</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Web 5: Elysian Estates (Hero 9) -->
+          <div class="stream-card w-[400px] sm:w-[480px] md:w-[540px] h-[260px] sm:h-[310px] md:h-[350px] rounded-2xl group" onclick="openSnapshotModal('snapshots/hero_9.jpg', 'Elysian Estates', 'Luxury Architecture & Real Estate • Web Experience', 'Curated showcase of high-end residences and architectural landmarks')">
+            <img src="snapshots/hero_9.jpg" alt="Elysian Estates Luxury Architecture" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 p-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono text-white tracking-wide">Architectural Real Estate</span>
+                <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">Elysian Estates</h3>
+                <p class="text-xs text-white/70 line-clamp-1 mt-1 font-sans">Curated showcase of high-end residences and architectural landmarks</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Web 6: Plugin Marketplace -->
+          <div class="stream-card w-[400px] sm:w-[480px] md:w-[540px] h-[260px] sm:h-[310px] md:h-[350px] rounded-2xl group" onclick="openSnapshotModal('snapshots/plugin_web_1.jpg', 'Plugin Marketplace', 'Professional Services Marketplace • Web Platform', 'Africa\'s first guaranteed professional services marketplace')">
+            <img src="snapshots/plugin_web_1.jpg" alt="Plugin Professional Marketplace" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 p-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono text-white tracking-wide">Services Market</span>
+                <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">Plugin Marketplace</h3>
+                <p class="text-xs text-white/70 line-clamp-1 mt-1 font-sans">Africa's first guaranteed professional services marketplace</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Web 7: Omni Master Dashboard -->
+          <div class="stream-card w-[400px] sm:w-[480px] md:w-[540px] h-[260px] sm:h-[310px] md:h-[350px] rounded-2xl group" onclick="openSnapshotModal('snapshots/dashboard_1.jpg', 'Omni Master Analytics', 'Analytics • Data Visualization', 'Unified multi-tenant telemetry and metric drilldowns')">
+            <img src="snapshots/dashboard_1.jpg" alt="Omni Master Analytics" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 p-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono text-white tracking-wide">Data Analytics</span>
+                <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">Omni Master Dashboard</h3>
+                <p class="text-xs text-white/70 line-clamp-1 mt-1 font-sans">Unified multi-tenant telemetry and metric drilldowns</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- DUPLICATE SET: Web 1-7 for Seamless Drag & Loop -->
+          <div class="stream-card w-[400px] sm:w-[480px] md:w-[540px] h-[260px] sm:h-[310px] md:h-[350px] rounded-2xl group" onclick="openSnapshotModal('snapshots/clausecore_hero_section.jpg', 'ClauseCore Hero Section', 'Legal AI SaaS • Web Platform', 'Modern contract intelligence & automated compliance workflow')">
+            <img src="snapshots/clausecore_hero_section.jpg" alt="ClauseCore Hero Section" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 p-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono text-white tracking-wide">Legal AI SaaS</span>
+                <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">ClauseCore Hero Section</h3>
+                <p class="text-xs text-white/70 line-clamp-1 mt-1 font-sans">Modern contract intelligence & automated compliance workflow</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stream-card w-[400px] sm:w-[480px] md:w-[540px] h-[260px] sm:h-[310px] md:h-[350px] rounded-2xl group" onclick="openSnapshotModal('snapshots/lexa_hero_section_1.jpg', 'Lexa Landing Page', 'Product Marketing • Web Experience', 'High-conversion hero section with dynamic interactive components')">
+            <img src="snapshots/lexa_hero_section_1.jpg" alt="Lexa Landing Page" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 p-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono text-white tracking-wide">Product Landing</span>
+                <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">Lexa AI Platform</h3>
+                <p class="text-xs text-white/70 line-clamp-1 mt-1 font-sans">High-conversion hero section with dynamic interactive components</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stream-card w-[400px] sm:w-[480px] md:w-[540px] h-[260px] sm:h-[310px] md:h-[350px] rounded-2xl group" onclick="openSnapshotModal('snapshots/hero_1.jpg', 'Azure Voyages', 'Luxury Travel & Yacht Expeditions • Web Experience', 'Curated private yacht expeditions, island itineraries and bespoke bookings')">
+            <img src="snapshots/hero_1.jpg" alt="Azure Voyages Luxury Travel" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 p-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono text-white tracking-wide">Bespoke Travel</span>
+                <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">Azure Voyages</h3>
+                <p class="text-xs text-white/70 line-clamp-1 mt-1 font-sans">Curated private yacht expeditions, island itineraries and bespoke bookings</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stream-card w-[400px] sm:w-[480px] md:w-[540px] h-[260px] sm:h-[310px] md:h-[350px] rounded-2xl group" onclick="openSnapshotModal('snapshots/hero_5.jpg', 'VortexPay Platform', 'Wealth Analytics & Treasury • Fintech Web', 'Real-time asset tracking, multi-asset liquidity and automated capital allocation')">
+            <img src="snapshots/hero_5.jpg" alt="VortexPay Fintech Platform" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 p-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono text-white tracking-wide">Fintech Wealth</span>
+                <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">VortexPay Platform</h3>
+                <p class="text-xs text-white/70 line-clamp-1 mt-1 font-sans">Real-time asset tracking, multi-asset liquidity and automated capital allocation</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stream-card w-[400px] sm:w-[480px] md:w-[540px] h-[260px] sm:h-[310px] md:h-[350px] rounded-2xl group" onclick="openSnapshotModal('snapshots/hero_9.jpg', 'Elysian Estates', 'Luxury Architecture & Real Estate • Web Experience', 'Curated showcase of high-end residences and architectural landmarks')">
+            <img src="snapshots/hero_9.jpg" alt="Elysian Estates Luxury Architecture" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 p-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono text-white tracking-wide">Architectural Real Estate</span>
+                <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">Elysian Estates</h3>
+                <p class="text-xs text-white/70 line-clamp-1 mt-1 font-sans">Curated showcase of high-end residences and architectural landmarks</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stream-card w-[400px] sm:w-[480px] md:w-[540px] h-[260px] sm:h-[310px] md:h-[350px] rounded-2xl group" onclick="openSnapshotModal('snapshots/plugin_web_1.jpg', 'Plugin Marketplace', 'Professional Services Marketplace • Web Platform', 'Africa\'s first guaranteed professional services marketplace')">
+            <img src="snapshots/plugin_web_1.jpg" alt="Plugin Professional Marketplace" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 p-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono text-white tracking-wide">Services Market</span>
+                <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">Plugin Marketplace</h3>
+                <p class="text-xs text-white/70 line-clamp-1 mt-1 font-sans">Africa's first guaranteed professional services marketplace</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stream-card w-[400px] sm:w-[480px] md:w-[540px] h-[260px] sm:h-[310px] md:h-[350px] rounded-2xl group" onclick="openSnapshotModal('snapshots/dashboard_1.jpg', 'Omni Master Analytics', 'Analytics • Data Visualization', 'Unified multi-tenant telemetry and metric drilldowns')">
+            <img src="snapshots/dashboard_1.jpg" alt="Omni Master Analytics" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 p-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-mono text-white tracking-wide">Data Analytics</span>
+                <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">Omni Master Dashboard</h3>
+                <p class="text-xs text-white/70 line-clamp-1 mt-1 font-sans">Unified multi-tenant telemetry and metric drilldowns</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2: Mobile Applications (Draggable Left/Right) -->
+    <div class="relative">
+      <!-- Track Wrapper with Contained Edge Gradient Fades -->
+      <div class="relative w-full overflow-hidden py-2">
+        <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-[var(--bg-cream)] to-transparent z-20"></div>
+        <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-[var(--bg-cream)] to-transparent z-20"></div>
+
+        <div id="mobile-stream-track" class="stream-track-draggable">
+          
+          <!-- Mobile 1: Crust Personal -->
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/crust_personal.jpg', 'Crust Personal Banking', 'Fintech • Mobile Banking', 'Personal accounts, multi-currency balances & tier management')">
+            <img src="snapshots/crust_personal.jpg" alt="Crust Personal Banking" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Fintech Mobile</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">Crust Bank</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Multi-currency accounts & cards</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile 2: Select Seat -->
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/select_seat.jpg', 'Cinema Seat Booking', 'Entertainment • Interactive UI', 'Interactive theater seat selection with VIP lounge tiers')">
+            <img src="snapshots/select_seat.jpg" alt="Cinema Seat Selection" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Booking Flow</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">CinePass Seats</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Interactive seat map & VIP tiers</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile 3: Home Bill -->
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/home_bill_1.jpg', 'Home Bill Hub', 'Utility • Smart Payments', 'Automated meter refills & household expense monitor')">
+            <img src="snapshots/home_bill_1.jpg" alt="Home Bill Hub" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Utility FinTech</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">Home Bill Hub</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Smart prepaid energy & gas monitor</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile 4: Create New Split -->
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/create_new_split_2.jpg', 'SplitShare Social Pay', 'Social Fintech • Group Pay', 'Custom percentages and multi-recipient bill splitting')">
+            <img src="snapshots/create_new_split_2.jpg" alt="SplitShare Social Pay" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Social Pay</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">SplitShare</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Dynamic percentage split engine</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile 5: Ticket -->
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/ticket.jpg', 'Live Pass Digital Ticket', 'Ticketing • QR Handshake', 'Verified digital ticket with barcode, hall & seat details')">
+            <img src="snapshots/ticket.jpg" alt="Live Pass Digital Ticket" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Mobile Pass</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">Live Pass Ticket</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Verified barcode & seat token</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile 6: Bill 1 -->
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/bill_1_1.jpg', 'Instant One-Tap Pay', 'Checkout UX • Mobile Banking', 'Biometric checkout flow with instant settlement receipts')">
+            <img src="snapshots/bill_1_1.jpg" alt="Instant One-Tap Pay" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Checkout UX</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">Instant Pay</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Biometric transaction settlement</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile 7: Ayo Design -->
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/ayo_design_1.jpg', 'Ayo Mobile Experience', 'Lifestyle • Mobile Platform', 'High-energy mobile UI with modular action cards')">
+            <img src="snapshots/ayo_design_1.jpg" alt="Ayo Mobile Experience" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Mobile Feed</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">Ayo App</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">High-energy modular action cards</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile 8: Workout -->
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/workout.jpg', 'Pulse Fit Activity Tracker', 'Health Tech • Daily Metrics', 'Real-time workout logging, cardiovascular zones & rep counters')">
+            <img src="snapshots/workout.jpg" alt="Pulse Fit Activity Tracker" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Health Tech</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">Pulse Fit</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Rep counters & cardio zones</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile 9: Timx -->
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/timx_3.jpg', 'Timx Calendar Agenda', 'Productivity • Time Management', 'Minimalist daily schedule with fluid drag-and-drop time blocks')">
+            <img src="snapshots/timx_3.jpg" alt="Timx Calendar Agenda" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Productivity</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">Timx Agenda</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Fluid time-blocking scheduler</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- DUPLICATE SET: Mobile 1-9 for Seamless Loop -->
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/crust_personal.jpg', 'Crust Personal Banking', 'Fintech • Mobile Banking', 'Personal accounts, multi-currency balances & tier management')">
+            <img src="snapshots/crust_personal.jpg" alt="Crust Personal Banking" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Fintech Mobile</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">Crust Bank</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Multi-currency accounts & cards</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/select_seat.jpg', 'Cinema Seat Booking', 'Entertainment • Interactive UI', 'Interactive theater seat selection with VIP lounge tiers')">
+            <img src="snapshots/select_seat.jpg" alt="Cinema Seat Selection" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Booking Flow</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">CinePass Seats</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Interactive seat map & VIP tiers</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/home_bill_1.jpg', 'Home Bill Hub', 'Utility • Smart Payments', 'Automated meter refills & household expense monitor')">
+            <img src="snapshots/home_bill_1.jpg" alt="Home Bill Hub" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Utility FinTech</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">Home Bill Hub</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Smart prepaid energy & gas monitor</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/create_new_split_2.jpg', 'SplitShare Social Pay', 'Social Fintech • Group Pay', 'Custom percentages and multi-recipient bill splitting')">
+            <img src="snapshots/create_new_split_2.jpg" alt="SplitShare Social Pay" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Social Pay</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">SplitShare</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Dynamic percentage split engine</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/ticket.jpg', 'Live Pass Digital Ticket', 'Ticketing • QR Handshake', 'Verified digital ticket with barcode, hall & seat details')">
+            <img src="snapshots/ticket.jpg" alt="Live Pass Digital Ticket" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Mobile Pass</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">Live Pass Ticket</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Verified barcode & seat token</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/bill_1_1.jpg', 'Instant One-Tap Pay', 'Checkout UX • Mobile Banking', 'Biometric checkout flow with instant settlement receipts')">
+            <img src="snapshots/bill_1_1.jpg" alt="Instant One-Tap Pay" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Checkout UX</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">Instant Pay</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Biometric transaction settlement</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/ayo_design_1.jpg', 'Ayo Mobile Experience', 'Lifestyle • Mobile Platform', 'High-energy mobile UI with modular action cards')">
+            <img src="snapshots/ayo_design_1.jpg" alt="Ayo Mobile Experience" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Mobile Feed</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">Ayo App</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">High-energy modular action cards</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/workout.jpg', 'Pulse Fit Activity Tracker', 'Health Tech • Daily Metrics', 'Real-time workout logging, cardiovascular zones & rep counters')">
+            <img src="snapshots/workout.jpg" alt="Pulse Fit Activity Tracker" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Health Tech</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">Pulse Fit</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Rep counters & cardio zones</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/timx_3.jpg', 'Timx Calendar Agenda', 'Productivity • Time Management', 'Minimalist daily schedule with fluid drag-and-drop time blocks')">
+            <img src="snapshots/timx_3.jpg" alt="Timx Calendar Agenda" class="w-full h-full object-cover object-top" loading="lazy">
+            <div class="stream-card-overlay absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-end">
+                <span class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs">↗</span>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-[#ff5900] uppercase tracking-wider block font-semibold mb-1">Productivity</span>
+                <h3 class="text-sm sm:text-base font-bold text-white leading-tight">Timx Agenda</h3>
+                <p class="text-[11px] text-white/70 line-clamp-1 mt-1">Fluid time-blocking scheduler</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. FEATURED CASE STUDIES ("Design in action" — Pure Mockups with Hover Reveal, Just like Olamide's) -->
+  <section id="works" class="py-24 border-t border-[var(--border-subtle)]">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-12 border-b border-[var(--border-subtle)]">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-widest text-[var(--electric-orange)] block mb-2">Selected Case Studies</span>
+          <h2 class="text-3xl sm:text-5xl font-medium tracking-tight text-[var(--charcoal)]">
+            Design in <span class="font-serif-editorial text-[var(--deep-teal)]">action</span>
+          </h2>
+        </div>
+        <p class="text-xs font-mono text-[var(--slate-muted)] max-w-sm">
+          Hover over each project to inspect details.
+        </p>
+      </div>
+
+      <!-- 2-Column Pure Mockup Grid (Olamide Style: Mockup-Only with Hover Reveal) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-10">
+        
+        <!-- CARD 1: Power Management App -->
+        <a href="powermanagement.html" class="work-tile group block h-[380px] sm:h-[460px]">
+          <img 
+            src="https://framerusercontent.com/images/E7kdxsmgsxh1cRz0Cjp6eOV8hLY.jpg?scale-down-to=1024" 
+            alt="Power Management App" 
+            class="w-full h-full object-cover object-center"
+          />
+          <!-- Hover Overlay & Slide-up Info Pill -->
+          <div class="work-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 p-8 flex flex-col justify-between">
+            <!-- Top Tag -->
+            <div class="flex justify-end">
+              <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-mono font-medium border border-white/20">
+                Fintech • Utility
+              </span>
+            </div>
+            <!-- Bottom Title Pill -->
+            <div class="work-info-pill transform translate-y-3 group-hover:translate-y-0 flex items-center justify-between">
+              <div>
+                <span class="text-[11px] font-mono text-[var(--electric-orange)] uppercase tracking-wider block font-semibold">Case Study</span>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Power Management App</h3>
+              </div>
+              <div class="w-11 h-11 rounded-full bg-white text-[#192021] flex items-center justify-center font-bold text-sm transform group-hover:rotate-45 transition-transform duration-300 shadow-lg">
+                ↗
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- CARD 2: GasHub -->
+        <a href="gashub.html" class="work-tile group block h-[380px] sm:h-[460px]">
+          <img 
+            src="https://framerusercontent.com/images/quqyGUfCaeq5quBMslxJ54frZ7g.jpg?scale-down-to=1024" 
+            alt="GasHub" 
+            class="w-full h-full object-cover object-center"
+          />
+          <!-- Hover Overlay & Slide-up Info Pill -->
+          <div class="work-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 p-8 flex flex-col justify-between">
+            <div class="flex justify-end">
+              <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-mono font-medium border border-white/20">
+                Commerce • Telemetry
+              </span>
+            </div>
+            <div class="work-info-pill transform translate-y-3 group-hover:translate-y-0 flex items-center justify-between">
+              <div>
+                <span class="text-[11px] font-mono text-[var(--electric-orange)] uppercase tracking-wider block font-semibold">Case Study</span>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">GasHub</h3>
+              </div>
+              <div class="w-11 h-11 rounded-full bg-white text-[#192021] flex items-center justify-center font-bold text-sm transform group-hover:rotate-45 transition-transform duration-300 shadow-lg">
+                ↗
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- CARD 3: WhatsApp New Features -->
+        <a href="whatsappfeatures.html" class="work-tile group block h-[380px] sm:h-[460px]">
+          <img 
+            src="https://framerusercontent.com/images/DvIpMdUMxYmCMgOGBaHvLBE5EGI.jpg?scale-down-to=1024" 
+            alt="Whatsapp New Features" 
+            class="w-full h-full object-cover object-center"
+          />
+          <!-- Hover Overlay & Slide-up Info Pill -->
+          <div class="work-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 p-8 flex flex-col justify-between">
+            <div class="flex justify-end">
+              <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-mono font-medium border border-white/20">
+                Messaging • Interaction
+              </span>
+            </div>
+            <div class="work-info-pill transform translate-y-3 group-hover:translate-y-0 flex items-center justify-between">
+              <div>
+                <span class="text-[11px] font-mono text-[var(--electric-orange)] uppercase tracking-wider block font-semibold">Case Study</span>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Whatsapp New Features</h3>
+              </div>
+              <div class="w-11 h-11 rounded-full bg-white text-[#192021] flex items-center justify-center font-bold text-sm transform group-hover:rotate-45 transition-transform duration-300 shadow-lg">
+                ↗
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- CARD 4: SwiftLog App -->
+        <a href="swiftlog.html" class="work-tile group block h-[380px] sm:h-[460px]">
+          <img 
+            src="https://framerusercontent.com/images/9rTYenpafgEE6KdztXmhNkGpM.jpg?scale-down-to=1024" 
+            alt="SwiftLog App" 
+            class="w-full h-full object-cover object-center"
+          />
+          <!-- Hover Overlay & Slide-up Info Pill -->
+          <div class="work-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 p-8 flex flex-col justify-between">
+            <div class="flex justify-end">
+              <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-mono font-medium border border-white/20">
+                SME Logistics • Dispatch
+              </span>
+            </div>
+            <div class="work-info-pill transform translate-y-3 group-hover:translate-y-0 flex items-center justify-between">
+              <div>
+                <span class="text-[11px] font-mono text-[var(--electric-orange)] uppercase tracking-wider block font-semibold">Case Study</span>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">SwiftLog App</h3>
+              </div>
+              <div class="w-11 h-11 rounded-full bg-white text-[#192021] flex items-center justify-center font-bold text-sm transform group-hover:rotate-45 transition-transform duration-300 shadow-lg">
+                ↗
+              </div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4. THE VALUE I DELIVER (With 'Vibecoding' Included) -->
+  <section id="capabilities" class="py-20 border-t border-[var(--border-subtle)] bg-[var(--surface-stone)]/40">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <span class="text-xs font-mono uppercase tracking-widest text-[var(--electric-orange)] block mb-3">Core Disciplines</span>
+      <h2 class="text-3xl sm:text-5xl font-medium tracking-tight text-[var(--charcoal)] mb-4">
+        The Value I <span class="font-serif-editorial text-[var(--deep-teal)]">Deliver</span>
+      </h2>
+      <p class="text-sm text-[var(--slate-muted)] max-w-xl mx-auto mb-12">
+        Full-stack product design expertise spanning discovery, architecture, high-fidelity UI, scalable design systems, and rapid vibecoding.
+      </p>
+
+      <!-- Core Disciplines in Minimal High-Craft Pill Grid -->
+      <div class="flex flex-wrap items-center justify-center gap-3.5 max-w-4xl mx-auto">
+        <span class="px-5 py-3 rounded-full bg-[var(--surface-card)] border border-[var(--border-subtle)] text-[var(--charcoal)] text-sm font-medium hover:border-[var(--deep-teal)] hover:text-[var(--deep-teal)] transition-all hover:-translate-y-0.5 shadow-sm">
+          Product Design
+        </span>
+        <!-- VIBECODING PILL -->
+        <span class="px-5 py-3 rounded-full bg-[var(--surface-card)] border border-[var(--electric-orange)]/40 text-[var(--charcoal)] text-sm font-medium hover:border-[var(--electric-orange)] hover:text-[var(--electric-orange)] transition-all hover:-translate-y-0.5 shadow-sm flex items-center gap-2">
+          <span class="text-[var(--electric-orange)] text-xs">⚡</span>
+          <span>Vibecoding</span>
+        </span>
+        <span class="px-5 py-3 rounded-full bg-[var(--surface-card)] border border-[var(--border-subtle)] text-[var(--charcoal)] text-sm font-medium hover:border-[var(--deep-teal)] hover:text-[var(--deep-teal)] transition-all hover:-translate-y-0.5 shadow-sm">
+          User Experience Design
+        </span>
+        <span class="px-5 py-3 rounded-full bg-[var(--surface-card)] border border-[var(--border-subtle)] text-[var(--charcoal)] text-sm font-medium hover:border-[var(--deep-teal)] hover:text-[var(--deep-teal)] transition-all hover:-translate-y-0.5 shadow-sm">
+          User Interface Design
+        </span>
+        <span class="px-5 py-3 rounded-full bg-[var(--surface-card)] border border-[var(--border-subtle)] text-[var(--charcoal)] text-sm font-medium hover:border-[var(--deep-teal)] hover:text-[var(--deep-teal)] transition-all hover:-translate-y-0.5 shadow-sm">
+          Design Systems
+        </span>
+        <span class="px-5 py-3 rounded-full bg-[var(--surface-card)] border border-[var(--border-subtle)] text-[var(--charcoal)] text-sm font-medium hover:border-[var(--deep-teal)] hover:text-[var(--deep-teal)] transition-all hover:-translate-y-0.5 shadow-sm">
+          User Research
+        </span>
+        <span class="px-5 py-3 rounded-full bg-[var(--surface-card)] border border-[var(--border-subtle)] text-[var(--charcoal)] text-sm font-medium hover:border-[var(--deep-teal)] hover:text-[var(--deep-teal)] transition-all hover:-translate-y-0.5 shadow-sm">
+          Interaction Design
+        </span>
+        <span class="px-5 py-3 rounded-full bg-[var(--surface-card)] border border-[var(--border-subtle)] text-[var(--charcoal)] text-sm font-medium hover:border-[var(--deep-teal)] hover:text-[var(--deep-teal)] transition-all hover:-translate-y-0.5 shadow-sm">
+          Visual Design
+        </span>
+        <span class="px-5 py-3 rounded-full bg-[var(--surface-card)] border border-[var(--border-subtle)] text-[var(--charcoal)] text-sm font-medium hover:border-[var(--deep-teal)] hover:text-[var(--deep-teal)] transition-all hover:-translate-y-0.5 shadow-sm">
+          Creativity
+        </span>
+        <span class="px-5 py-3 rounded-full bg-[var(--surface-card)] border border-[var(--border-subtle)] text-[var(--charcoal)] text-sm font-medium hover:border-[var(--deep-teal)] hover:text-[var(--deep-teal)] transition-all hover:-translate-y-0.5 shadow-sm">
+          Design Thinking
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. BEHIND THE CANVAS (About & Philosophy — High-Contrast Midnight Noir) -->
+  <section id="about" class="py-24 bg-[#07181c] text-[#f8f6f3] relative overflow-hidden">
+    <!-- Subtle Ambient Glow & Pattern -->
+    <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-[#025f6e]/20 blur-3xl pointer-events-none"></div>
+    <div class="absolute inset-0 opacity-10 pointer-events-none bg-center bg-cover" style="background-image: url('https://framerusercontent.com/images/5bSgVOjwR5iEdfk692ONl843us.svg?width=2046&height=729');"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-6">
+          <span class="text-xs font-mono uppercase tracking-widest text-[#ff5900] block mb-3 font-semibold">About Me</span>
+          <h2 class="text-3xl sm:text-5xl font-medium tracking-tight text-white mb-6 leading-tight">
+            Behind the <span class="font-serif-editorial text-[#ebe9e4]">canvas</span>.
+          </h2>
+          
+          <div class="space-y-4 text-sm sm:text-base text-white/85 leading-relaxed font-normal">
+            <p>
+              Designing solutions that not only enhance usability but also advance business growth and success. Whether it’s creating an MVP that converts or crafting solutions that address user needs, my approach balances empathy with strategic impact, focusing on outcomes rather than just aesthetics.
+            </p>
+            <p>
+              When we collaborate, expect clear communication, purposeful designs, and a zero-ego process. Off the pitch, you’ll find me catching the latest football matches, exploring visual arts, or enjoying quality music.
+            </p>
+          </div>
+
+          <div class="mt-8 flex items-center gap-4">
+            <a href="#contact" class="px-6 py-3 rounded-full bg-white text-[#07181c] text-xs font-bold tracking-wide hover:bg-[#ebe9e4] transition-all transform hover:-translate-y-0.5 shadow-lg flex items-center gap-2">
+              <span>Let's connect!</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </a>
+            <a href="https://bit.ly/amos-abu-cv" target="_blank" class="px-5 py-3 rounded-full border border-white/20 text-white text-xs font-mono hover:bg-white/10 transition-colors">
+              Download CV ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- 3 Personal Photo Cards -->
+        <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+          
+          <div class="photo-card rounded-2xl bg-white p-3 shadow-xl transform sm:-rotate-2">
+            <div class="w-full h-56 rounded-xl overflow-hidden mb-3 bg-gray-100">
+              <img src="https://framerusercontent.com/images/zeJolt3RLWIKItXJVj0PbNucKg.jpeg?scale-down-to=512" alt="A happy person" class="w-full h-full object-cover">
+            </div>
+            <p class="text-[11px] font-mono text-[#192021] text-center font-medium">A happy person</p>
+          </div>
+
+          <div class="photo-card rounded-2xl bg-white p-3 shadow-xl transform sm:translate-y-4 sm:rotate-1">
+            <div class="w-full h-56 rounded-xl overflow-hidden mb-3 bg-gray-100">
+              <img src="https://framerusercontent.com/images/1HHnr6MLSfsIMTfN25yMbT4Hqk.png?scale-down-to=512" alt="Enjoy Football" class="w-full h-full object-cover">
+            </div>
+            <p class="text-[11px] font-mono text-[#192021] text-center font-medium">Enjoy Football</p>
+          </div>
+
+          <div class="photo-card rounded-2xl bg-white p-3 shadow-xl transform sm:-rotate-1">
+            <div class="w-full h-56 rounded-xl overflow-hidden mb-3 bg-gray-100">
+              <img src="https://framerusercontent.com/images/yK3dLcAxFLFUNP96SPfC0w80dAg.jpeg?scale-down-to=512" alt="Work Mode" class="w-full h-full object-cover">
+            </div>
+            <p class="text-[11px] font-mono text-[#192021] text-center font-medium">Work Mode</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. KIND WORDS FROM CLIENTS -->
+  <section class="py-24 border-t border-[var(--border-subtle)] bg-[var(--surface-stone)]/50">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="flex items-center justify-between mb-12">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-widest text-[var(--electric-orange)] block mb-1">Social Proof</span>
+          <h2 class="text-3xl sm:text-4xl font-medium tracking-tight text-[var(--charcoal)]">
+            Kind words from <span class="font-serif-editorial text-[var(--deep-teal)]">Clients</span>
+          </h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="p-6 rounded-2xl bg-[var(--surface-card)] border border-[var(--border-subtle)] flex flex-col justify-between shadow-sm hover:border-[var(--deep-teal)] transition-all">
+          <p class="text-xs text-[var(--charcoal)] leading-relaxed mb-6">
+            "I had the privilege of working with Abu Amos, whose exceptional eye for detail and commitment to continuous learning stand out. He is proactive, open to feedback, and deeply detail-oriented."
+          </p>
+          <div class="pt-4 border-t border-[var(--border-subtle)]">
+            <h5 class="text-xs font-bold text-[var(--charcoal)]">Chikezie Ekechukwu</h5>
+            <span class="text-[10px] font-mono text-[var(--slate-muted)]">Team Lead, PMO</span>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-[var(--surface-card)] border border-[var(--border-subtle)] flex flex-col justify-between shadow-sm hover:border-[var(--deep-teal)] transition-all">
+          <p class="text-xs text-[var(--charcoal)] leading-relaxed mb-6">
+            "Abu Amos consistently demonstrates reliability, punctuality, and a strong sense of responsibility. His collaborative spirit and dedication make him an invaluable asset to any team."
+          </p>
+          <div class="pt-4 border-t border-[var(--border-subtle)]">
+            <h5 class="text-xs font-bold text-[var(--charcoal)]">Mr. Abubakar Aliyu</h5>
+            <span class="text-[10px] font-mono text-[var(--slate-muted)]">CEO, Bubetech</span>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-[var(--surface-card)] border border-[var(--border-subtle)] flex flex-col justify-between shadow-sm hover:border-[var(--deep-teal)] transition-all">
+          <p class="text-xs text-[var(--charcoal)] leading-relaxed mb-6">
+            "Abu's talent as a UI/UX designer is exceptional. His designs combine aesthetics with profound usability, delivering solutions with remarkable efficiency and strategic insight."
+          </p>
+          <div class="pt-4 border-t border-[var(--border-subtle)]">
+            <h5 class="text-xs font-bold text-[var(--charcoal)]">Daniel Obasi</h5>
+            <span class="text-[10px] font-mono text-[var(--slate-muted)]">Founder, ClauseCore</span>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-[var(--surface-card)] border border-[var(--border-subtle)] flex flex-col justify-between shadow-sm hover:border-[var(--deep-teal)] transition-all">
+          <p class="text-xs text-[var(--charcoal)] leading-relaxed mb-6">
+            "I had the pleasure of working with Osaze. His attention to detail, research-driven user journeys, and prompt delivery of high-quality UI/UX work made our collaboration truly impactful."
+          </p>
+          <div class="pt-4 border-t border-[var(--border-subtle)]">
+            <h5 class="text-xs font-bold text-[var(--charcoal)]">Sunday Igbohun</h5>
+            <span class="text-[10px] font-mono text-[var(--slate-muted)]">CEO, Emonie</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 7. BRANDS MARQUEE -->
+  <section class="py-12 border-t border-[var(--border-subtle)] overflow-hidden bg-[var(--bg-cream)]">
+    <div class="max-w-7xl mx-auto px-6 mb-4 text-xs font-mono uppercase tracking-widest text-[var(--slate-muted)]">
+      <span>Brands I've Worked With</span>
+    </div>
+    <div class="relative w-full overflow-hidden py-3">
+      <div class="animate-marquee flex items-center gap-16 text-2xl font-bold tracking-tight text-[var(--charcoal)] opacity-70">
+        <span>FINFLOW</span>
+        <span class="text-[var(--electric-orange)] text-sm">✦</span>
+        <span>BUBETECH</span>
+        <span class="text-[var(--electric-orange)] text-sm">✦</span>
+        <span>CLAUSECORE</span>
+        <span class="text-[var(--electric-orange)] text-sm">✦</span>
+        <span>EMONIE</span>
+        <span class="text-[var(--electric-orange)] text-sm">✦</span>
+        <span>SWIFTLOG</span>
+        <span class="text-[var(--electric-orange)] text-sm">✦</span>
+        <span>FINFLOW</span>
+        <span class="text-[var(--electric-orange)] text-sm">✦</span>
+        <span>BUBETECH</span>
+        <span class="text-[var(--electric-orange)] text-sm">✦</span>
+        <span>CLAUSECORE</span>
+        <span class="text-[var(--electric-orange)] text-sm">✦</span>
+        <span>EMONIE</span>
+        <span class="text-[var(--electric-orange)] text-sm">✦</span>
+        <span>SWIFTLOG</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. CONTACT & FOOTER -->
+  <footer id="contact" class="py-24 bg-[#14191a] text-[#f8f6f3] relative overflow-hidden">
+    <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[var(--deep-teal)]/20 blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-12 pb-16 border-b border-white/10">
+        <div class="max-w-2xl">
+          <span class="text-xs font-mono uppercase tracking-widest text-[var(--electric-orange)] block mb-4">Ready to turn ideas into impact?</span>
+          <h2 class="text-3xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white leading-tight">
+            I'd love to connect <span class="font-serif-editorial text-[var(--surface-stone)]">with you!</span>
+          </h2>
+        </div>
+
+        <div>
+          <a href="mailto:osazeabuhaymus@gmail.com" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[var(--electric-orange)] text-white font-medium text-sm sm:text-base tracking-wide transform hover:scale-105 active:scale-95 transition-all shadow-xl hover:bg-[#e04e00]">
+            <span>Send Email</span>
+            <span class="text-lg">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="pt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-xs font-mono">
+        <div>
+          <span class="text-white/40 block mb-3 uppercase tracking-wider">Email</span>
+          <a href="mailto:osazeabuhaymus@gmail.com" class="text-white hover:text-[var(--electric-orange)] transition-colors block mb-1">
+            osazeabuhaymus@gmail.com
+          </a>
+          <span class="text-white/60 block">Click to open your mail client</span>
+        </div>
+
+        <div>
+          <span class="text-white/40 block mb-3 uppercase tracking-wider">Resume</span>
+          <a href="https://bit.ly/amos-abu-cv" target="_blank" class="text-white hover:text-[var(--electric-orange)] transition-colors block mb-1">
+            Download Resume (CV) ↗
+          </a>
+          <span class="text-white/60 block">Google Drive PDF</span>
+        </div>
+
+        <div>
+          <span class="text-white/40 block mb-3 uppercase tracking-wider">Social Channels</span>
+          <div class="flex flex-col gap-1.5">
+            <a href="https://www.linkedin.com/in/amos-abu/" target="_blank" class="text-white hover:text-[var(--electric-orange)] transition-colors">LinkedIn ↗</a>
+            <a href="https://x.com/amososaze" target="_blank" class="text-white hover:text-[var(--electric-orange)] transition-colors">Twitter / X ↗</a>
+            <a href="https://www.tiktok.com/@sazzy_designz" target="_blank" class="text-white hover:text-[var(--electric-orange)] transition-colors">TikTok ↗</a>
+            <a href="https://www.instagram.com/sazzy_lee" target="_blank" class="text-white hover:text-[var(--electric-orange)] transition-colors">Instagram ↗</a>
+          </div>
+        </div>
+
+        <div>
+          <span class="text-white/40 block mb-3 uppercase tracking-wider">Location</span>
+          <span class="text-white block font-medium">Lagos, Nigeria (WAT / GMT+1)</span>
+          <span class="text-white/60 block mt-1">Available worldwide for remote contracts</span>
+        </div>
+      </div>
+
+      <div class="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-white/40 gap-4">
+        <span>© 2026 Amos Osaze Abu. All rights reserved.</span>
+        <span>Crafted with subtle interactions & high-contrast minimalism.</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- INTERACTIVE SNAPSHOT LIGHTBOX MODAL (Dennis Snellenberg Style) -->
+  <div id="snapshot-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4 sm:p-8" onclick="if(event.target === this) closeSnapshotModal()">
+    <div class="relative max-w-5xl w-full max-h-[92vh] flex flex-col items-center bg-[#192021] rounded-3xl overflow-hidden shadow-2xl border border-white/10" onclick="event.stopPropagation()">
+      <!-- Modal Header Bar -->
+      <div class="w-full px-6 py-4 bg-[#14191a] border-b border-white/10 flex items-center justify-between text-xs font-mono">
+        <div class="flex items-center gap-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#ff5900]"></span>
+          <span id="modal-category" class="text-white/60 uppercase tracking-wider text-[11px]">Category</span>
+          <span class="text-white/30">•</span>
+          <span id="modal-title" class="text-white font-bold text-sm">Title</span>
+        </div>
+        <button onclick="closeSnapshotModal()" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors flex items-center gap-1.5 text-xs font-mono cursor-pointer">
+          <span>Close</span>
+          <span class="opacity-60">[Esc]</span>
+        </button>
+      </div>
+      <!-- Modal Image Container -->
+      <div class="w-full max-h-[78vh] overflow-auto p-4 sm:p-6 flex items-center justify-center bg-black/40">
+        <img id="modal-img" src="" alt="Snapshot Full View" class="max-h-[74vh] max-w-full object-contain rounded-xl shadow-lg">
+      </div>
+      <!-- Modal Footer -->
+      <div class="w-full px-6 py-3 bg-[#14191a] border-t border-white/10 flex items-center justify-between text-xs text-white/50 font-mono">
+        <span id="modal-desc" class="line-clamp-1">Design Snapshot</span>
+        <span class="text-[11px] text-white/40">Click backdrop or press Esc to return</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT FOR LIGHT/DARK THEME TOGGLE, DRAGGABLE STREAMS & MODAL (Olamide & Snellenberg Style) -->
+  <script>
+    window.justDragged = false;
+
+    function openSnapshotModal(src, title, category, desc) {
+      if (window.justDragged) return;
+      const modal = document.getElementById('snapshot-modal');
+      document.getElementById('modal-img').src = src;
+      document.getElementById('modal-title').textContent = title;
+      document.getElementById('modal-category').textContent = category;
+      document.getElementById('modal-desc').textContent = desc || '';
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSnapshotModal() {
+      const modal = document.getElementById('snapshot-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeSnapshotModal();
+    });
+
+    // Hold & Drag to Side Feature for Rows (Olamide Style)
+    function setupDraggableStream(trackId, autoSpeed) {
+      const track = document.getElementById(trackId);
+      if (!track) return;
+
+      let currentX = 0;
+      let isDragging = false;
+      let isHovered = false;
+      let startX = 0;
+      let dragStartX = 0;
+      let hasDragged = false;
+      let velocity = 0;
+      let lastX = 0;
+      let lastTime = 0;
+
+      // Prevent native ghost drag on images
+      track.querySelectorAll('img').forEach(img => {
+        img.setAttribute('draggable', 'false');
+      });
+
+      function getHalfWidth() {
+        return track.scrollWidth / 2;
+      }
+
+      function animate() {
+        if (!isDragging) {
+          if (!isHovered) {
+            currentX += autoSpeed;
+          }
+          if (Math.abs(velocity) > 0.05) {
+            currentX += velocity;
+            velocity *= 0.94; // smooth inertia friction
+          }
+        }
+
+        const half = getHalfWidth();
+        if (half > 0) {
+          while (currentX <= -half) currentX += half;
+          while (currentX > 0) currentX -= half;
+        }
+
+        track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+        requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
+
+      // Hover to pause auto-scroll
+      track.parentElement.addEventListener('mouseenter', () => { isHovered = true; });
+      track.parentElement.addEventListener('mouseleave', () => { 
+        isHovered = false; 
+        if (isDragging) {
+          isDragging = false;
+          track.classList.remove('is-dragging');
+        }
+      });
+
+      const onStart = (clientX) => {
+        isDragging = true;
+        hasDragged = false;
+        startX = clientX;
+        dragStartX = currentX;
+        lastX = clientX;
+        lastTime = performance.now();
+        velocity = 0;
+        track.classList.add('is-dragging');
+      };
+
+      const onMove = (clientX) => {
+        if (!isDragging) return;
+        const delta = clientX - startX;
+        if (Math.abs(delta) > 5) {
+          hasDragged = true;
+          window.justDragged = true;
+        }
+        currentX = dragStartX + delta;
+
+        const now = performance.now();
+        const dt = now - lastTime;
+        if (dt > 0) {
+          velocity = ((clientX - lastX) / dt) * 12;
+        }
+        lastX = clientX;
+        lastTime = now;
+      };
+
+      const onEnd = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        track.classList.remove('is-dragging');
+        if (hasDragged) {
+          setTimeout(() => { window.justDragged = false; }, 150);
+        }
+      };
+
+      // Mouse events
+      track.addEventListener('mousedown', (e) => {
+        onStart(e.clientX);
+        e.preventDefault();
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (isDragging) onMove(e.clientX);
+      });
+
+      window.addEventListener('mouseup', () => {
+        onEnd();
+      });
+
+      // Mobile Touch events
+      track.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          onStart(e.touches[0].clientX);
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchmove', (e) => {
+        if (isDragging && e.touches.length === 1) {
+          onMove(e.touches[0].clientX);
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchend', () => {
+        onEnd();
+      });
+
+      // Trackpad 2-finger horizontal wheel support
+      track.parentElement.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+          currentX -= e.deltaX;
+          e.preventDefault();
+        }
+      }, { passive: false });
+    }
+
+    // Initialize both tracks
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        setupDraggableStream('web-stream-track', -0.75);
+        setupDraggableStream('mobile-stream-track', 0.75);
+      });
+    } else {
+      setupDraggableStream('web-stream-track', -0.75);
+      setupDraggableStream('mobile-stream-track', 0.75);
+    }
+
+    function setTheme(mode) {
+      const htmlEl = document.documentElement;
+      const lightBtn = document.getElementById('theme-light-btn');
+      const darkBtn = document.getElementById('theme-dark-btn');
+
+      if (mode === 'dark') {
+        htmlEl.classList.add('dark');
+        htmlEl.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+
+        darkBtn.className = "w-8 h-8 rounded-full flex items-center justify-center transition-all text-xs bg-[var(--deep-teal)] text-white shadow-sm";
+        lightBtn.className = "w-8 h-8 rounded-full flex items-center justify-center transition-all text-xs text-[var(--slate-muted)] hover:text-[var(--charcoal)]";
+      } else {
+        htmlEl.classList.remove('dark');
+        htmlEl.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+
+        lightBtn.className = "w-8 h-8 rounded-full flex items-center justify-center transition-all text-xs bg-white text-[#192021] shadow-sm";
+        darkBtn.className = "w-8 h-8 rounded-full flex items-center justify-center transition-all text-xs text-[var(--slate-muted)] hover:text-[var(--charcoal)]";
+      }
+    }
+
+    // Initialize saved or system preference
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    setTheme(savedTheme);
+  </script>
+</body>
+</html>

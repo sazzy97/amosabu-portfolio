@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SwiftLog App — Case Study by Amos Osaze Abu</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    :root {
+      --bg-cream: #f8f6f3;
+      --surface-stone: #ebe9e4;
+      --surface-card: #ffffff;
+      --deep-teal: #025f6e;
+      --deep-teal-dark: #01434e;
+      --electric-orange: #ff5900;
+      --charcoal: #192021;
+      --slate-muted: #5e6667;
+      --border-subtle: rgba(2, 95, 110, 0.12);
+      --card-bg-subtle: #f4f2ee;
+    }
+
+    html.dark {
+      --bg-cream: #0c1011;
+      --surface-stone: #151a1b;
+      --surface-card: #1b2123;
+      --deep-teal: #1bb3cc;
+      --deep-teal-dark: #128a9e;
+      --electric-orange: #ff6a1a;
+      --charcoal: #f0f4f5;
+      --slate-muted: #8e9a9c;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --card-bg-subtle: #14191a;
+    }
+    
+    body {
+      background-color: var(--bg-cream);
+      color: var(--charcoal);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    ::selection {
+      background-color: var(--electric-orange);
+      color: #ffffff;
+    }
+
+    .font-serif-editorial {
+      font-family: "Playfair Display", "New York", "Didot", "Georgia", serif;
+      font-style: italic;
+    }
+
+    .mockup-frame {
+      border: none;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      background-color: var(--card-bg-subtle);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+    .mockup-frame:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.12);
+    }
+  </style>
+</head>
+<body class="min-h-screen text-[var(--charcoal)] antialiased relative overflow-x-hidden">
+
+  <!-- FIXED THEME TOGGLE -->
+  <aside class="fixed bottom-6 right-6 z-50">
+    <div class="p-1 rounded-full bg-[var(--surface-stone)]/80 backdrop-blur-md border border-[var(--border-subtle)] shadow-xl flex items-center gap-1">
+      <button 
+        id="theme-light-btn"
+        onclick="setTheme('light')" 
+        class="w-8 h-8 rounded-full flex items-center justify-center transition-all text-xs"
+        title="Light theme">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5" stroke-width="2"></circle>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+        </svg>
+      </button>
+      <button 
+        id="theme-dark-btn"
+        onclick="setTheme('dark')" 
+        class="w-8 h-8 rounded-full flex items-center justify-center transition-all text-xs text-[var(--slate-muted)] hover:text-[var(--charcoal)]"
+        title="Dark theme">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="w-full max-w-7xl mx-auto px-6 py-8 flex items-center justify-between text-sm sticky top-0 z-40 bg-[var(--bg-cream)]/90 backdrop-blur-md border-b border-[var(--border-subtle)]/40">
+    <a href="index.html" class="group flex items-center gap-3">
+      <div class="w-2.5 h-2.5 rounded-full bg-[var(--electric-orange)]"></div>
+      <div>
+        <span class="font-bold tracking-tight text-base text-[var(--charcoal)] group-hover:text-[var(--deep-teal)] transition-colors">Amos O. Abu</span>
+        <span class="text-xs text-[var(--slate-muted)] block font-mono">Digital Product Designer</span>
+      </div>
+    </a>
+
+    <div class="flex items-center gap-6">
+      <a href="index.html#works" class="text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors flex items-center gap-1.5">
+        <span>← All Works</span>
+      </a>
+      <a href="index.html#contact" class="px-5 py-2.5 rounded-full bg-[var(--deep-teal)] text-white text-xs font-medium tracking-wide hover:bg-[var(--deep-teal-dark)] transition-all transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm flex items-center gap-2">
+        <span>Chat with me</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- CASE STUDY HERO HEADER -->
+  <article class="max-w-7xl mx-auto px-6 pt-16 pb-24">
+    
+    <!-- Breadcrumb & Tags -->
+    <div class="max-w-4xl mb-6">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--surface-stone)] border border-[var(--border-subtle)] text-xs font-mono mb-6">
+        <span class="text-[var(--electric-orange)] font-bold">●</span>
+        <span class="text-[var(--charcoal)] font-medium">B2B SaaS & SME Logistics</span>
+        <span class="opacity-40">•</span>
+        <span class="text-[var(--slate-muted)]">Zuri Logistics Case Study</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl md:text-6xl font-medium tracking-tight text-[var(--charcoal)] leading-[1.15] mb-6">
+        SwiftLog Platform
+      </h1>
+      <p class="text-lg sm:text-xl text-[var(--slate-muted)] leading-relaxed font-normal">
+        Empowering small and medium-scale retailers across emerging markets with affordable on-demand parcel dispatch, real-time waypoint GPS tracking, and transparent courier communication.
+      </p>
+    </div>
+
+    <!-- METADATA STRIP -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 py-8 border-y border-[var(--border-subtle)] text-xs font-mono my-10">
+      <div>
+        <span class="text-[var(--slate-muted)] block uppercase mb-1">Client</span>
+        <span class="font-bold text-[var(--charcoal)] text-sm">Zuri</span>
+      </div>
+      <div>
+        <span class="text-[var(--slate-muted)] block uppercase mb-1">My Role</span>
+        <span class="font-bold text-[var(--charcoal)] text-sm">Lead Product Designer</span>
+      </div>
+      <div>
+        <span class="text-[var(--slate-muted)] block uppercase mb-1">Timeline</span>
+        <span class="font-bold text-[var(--charcoal)] text-sm">7 Weeks, 3 Days</span>
+      </div>
+      <div>
+        <span class="text-[var(--slate-muted)] block uppercase mb-1">Platform</span>
+        <span class="font-bold text-[var(--charcoal)] text-sm">iOS & Android App</span>
+      </div>
+    </div>
+
+    <!-- HERO FULL-BLEED MOCKUP -->
+    <div class="mockup-frame w-full h-[360px] sm:h-[540px] md:h-[640px] mb-24 bg-[#f4f1ea] relative">
+      <img 
+        src="https://framerusercontent.com/images/9rTYenpafgEE6KdztXmhNkGpM.jpg?width=2424&height=1881" 
+        alt="SwiftLog Hero Mockup" 
+        class="w-full h-full object-cover object-center"
+      />
+    </div>
+
+    <!-- SECTION 1: THE CHALLENGE -->
+    <section class="max-w-4xl mx-auto mb-24">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-xs font-mono uppercase tracking-widest text-[var(--electric-orange)]">01 / The Challenge</span>
+      </div>
+      <h2 class="text-2xl sm:text-4xl font-medium tracking-tight text-[var(--charcoal)] mb-6 leading-tight">
+        Traditional delivery services were draining SME margins and <span class="font-serif-editorial text-[var(--deep-teal)]">destroying customer trust</span>.
+      </h2>
+      <p class="text-base sm:text-lg text-[var(--slate-muted)] leading-relaxed mb-8">
+        For African e-commerce merchants and independent retailers, dispatching goods through regular post offices or informal commercial interstate transport was agonizingly slow and prohibitively expensive. Deliveries arrived damaged or days late, leaving customers frustrated and refusing repeat business.
+      </p>
+
+      <!-- Pain Points Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
+        <div class="p-6 rounded-2xl bg-[var(--surface-stone)]/60 border border-[var(--border-subtle)]">
+          <span class="w-7 h-7 rounded-full bg-[var(--electric-orange)]/15 text-[var(--electric-orange)] flex items-center justify-center font-mono font-bold text-xs mb-4">01</span>
+          <h3 class="text-base font-bold text-[var(--charcoal)] mb-2">Exorbitant Shipping Rates</h3>
+          <p class="text-xs text-[var(--slate-muted)] leading-relaxed">
+            Unregulated commercial drivers and post offices charged high fees that wiped out the profit margins of growing small businesses.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-[var(--surface-stone)]/60 border border-[var(--border-subtle)]">
+          <span class="w-7 h-7 rounded-full bg-[var(--electric-orange)]/15 text-[var(--electric-orange)] flex items-center justify-center font-mono font-bold text-xs mb-4">02</span>
+          <h3 class="text-base font-bold text-[var(--charcoal)] mb-2">Black-Hole Transit Times</h3>
+          <p class="text-xs text-[var(--slate-muted)] leading-relaxed">
+            With zero live tracking, merchants had no way of knowing where a package was once handed over, leading to constant customer complaints.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-[var(--surface-stone)]/60 border border-[var(--border-subtle)]">
+          <span class="w-7 h-7 rounded-full bg-[var(--electric-orange)]/15 text-[var(--electric-orange)] flex items-center justify-center font-mono font-bold text-xs mb-4">03</span>
+          <h3 class="text-base font-bold text-[var(--charcoal)] mb-2">Zero Customer Support</h3>
+          <p class="text-xs text-[var(--slate-muted)] leading-relaxed">
+            When packages were delayed or lost, merchants had no direct communication channel with couriers, directly harming their brand reputation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: ONBOARDING & VALUE COMMUNICATOR -->
+    <section class="max-w-5xl mx-auto mb-24">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest text-[var(--electric-orange)] block mb-2">02 / The Strategy</span>
+        <h2 class="text-3xl sm:text-4xl font-medium tracking-tight text-[var(--charcoal)] mb-4">
+          Empathetic Onboarding & <span class="font-serif-editorial text-[var(--deep-teal)]">Frictionless Setup</span>
+        </h2>
+        <p class="text-sm text-[var(--slate-muted)] leading-relaxed">
+          Establishing confidence on first launch by clearly highlighting Swift Delivery, Direct Driver Communication, and Real-Time Tracking.
+        </p>
+      </div>
+
+      <div class="mockup-frame w-full h-[460px] sm:h-[580px] bg-[#edf4f5] p-6 flex items-center justify-center mb-8">
+        <img 
+          src="https://framerusercontent.com/images/kga1rOgFTu0FvC9MP7aZHtWgA.jpg" 
+          alt="3-Screen Onboarding Flow: Swift Delivery, Easy Communication, Track Package" 
+          class="w-full h-full object-contain"
+        />
+      </div>
+      <p class="text-xs text-center font-mono text-[var(--slate-muted)] max-w-md mx-auto">
+        Structured onboarding journey: Communicates transparent rates, built-in rider contact, and precision GPS tracking.
+      </p>
+    </section>
+
+    <!-- SECTION 3: BOOKING TO TRACKING PIPELINE (REORDERED & INTUITIVE) -->
+    <section class="max-w-5xl mx-auto mb-24">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest text-[var(--electric-orange)] block mb-2">03 / End-to-End Workflow</span>
+        <h2 class="text-3xl sm:text-4xl font-medium tracking-tight text-[var(--charcoal)] mb-4">
+          From Package Creation to <span class="font-serif-editorial text-[var(--deep-teal)]">Doorstep Delivery</span>
+        </h2>
+        <p class="text-sm text-[var(--slate-muted)] leading-relaxed">
+          A 4-stage logistics pipeline designed to reduce dispatch booking from 15 minutes of chaotic phone calls down to under 60 seconds.
+        </p>
+      </div>
+
+      <!-- Step 1: Package Booking Form -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-20 p-8 rounded-3xl bg-[var(--surface-card)] border border-[var(--border-subtle)]">
+        <div class="lg:col-span-5 space-y-4">
+          <span class="inline-block px-3 py-1 rounded-full bg-[#eef4f5] text-[var(--deep-teal)] text-xs font-mono font-semibold">
+            Stage 01: Package Configuration
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-bold text-[var(--charcoal)]">Dynamic Category & Size Selectors</h3>
+          <p class="text-sm text-[var(--slate-muted)] leading-relaxed">
+            Replaces ambiguous freight categories with intuitive chips. Merchants pick their industry (<em>Gadgets</em>, <em>Fashion</em>, <em>Electronics</em>, <em>Groceries</em>), specify package vulnerability (<em>Fragile</em>, <em>Shatter Resistant</em>), and choose clear weight tiers (<em>1-3kg</em>, <em>3-6kg</em>, <em>6-10kg</em>).
+          </p>
+          <ul class="space-y-2 text-xs font-mono text-[var(--slate-muted)] pt-2">
+            <li class="flex items-center gap-2">✓ Smart package handling tags (Fragile flags)</li>
+            <li class="flex items-center gap-2">✓ Transparent tiered pricing based on weight</li>
+            <li class="flex items-center gap-2">✓ Custom package description notes for riders</li>
+          </ul>
+        </div>
+        <div class="lg:col-span-7 mockup-frame h-[440px] bg-[#f9f2ec]">
+          <img src="https://framerusercontent.com/images/q5FTOq8aGKaQYz6RXlcr4qrKHgE.jpg" alt="Sending Package Configuration Screen" class="w-full h-full object-cover">
+        </div>
+      </div>
+
+      <!-- Step 2: Order Summary & Checkout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-20 p-8 rounded-3xl bg-[var(--surface-card)] border border-[var(--border-subtle)]">
+        <div class="lg:col-span-7 order-2 lg:order-1 mockup-frame h-[440px] bg-[#f4f1ea]">
+          <img src="https://framerusercontent.com/images/Ch78v1O9UkJObNoQ7eMRRVrwXfI.jpg" alt="Order Summary & Checkout Screen" class="w-full h-full object-cover">
+        </div>
+        <div class="lg:col-span-5 order-1 lg:order-2 space-y-4">
+          <span class="inline-block px-3 py-1 rounded-full bg-[#f4f1ea] text-[var(--electric-orange)] text-xs font-mono font-semibold">
+            Stage 02: Transparent Settlement
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-bold text-[var(--charcoal)]">Order Summary & Flat Rates</h3>
+          <p class="text-sm text-[var(--slate-muted)] leading-relaxed">
+            Provides a full, scannable order breakdown before payment. Both sender and receiver addresses (e.g. Egbeda to Lekki Phase 1) are displayed alongside package specifics and a guaranteed flat delivery fee (₦3,500), eliminating surprise courier surcharges.
+          </p>
+          <ul class="space-y-2 text-xs font-mono text-[var(--slate-muted)] pt-2">
+            <li class="flex items-center gap-2">✓ Inline edit triggers for rapid address corrections</li>
+            <li class="flex items-center gap-2">✓ Verified recipient phone bridge</li>
+            <li class="flex items-center gap-2">✓ Flat ₦3,500 rate with 25% promo code support</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Step 3: Live GPS Route Map & Driver Communication Bar -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-20 p-8 rounded-3xl bg-[var(--surface-card)] border border-[var(--border-subtle)]">
+        <div class="lg:col-span-5 space-y-4">
+          <span class="inline-block px-3 py-1 rounded-full bg-[#eef4f5] text-[var(--deep-teal)] text-xs font-mono font-semibold">
+            Stage 03: Live In-Transit Visibility
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-bold text-[var(--charcoal)]">Real-Time GPS Map & Rider Bridge</h3>
+          <p class="text-sm text-[var(--slate-muted)] leading-relaxed">
+            Merchants and end-buyers watch the parcel progress along live road maps (e.g., Agege to Ikeja). Features a persistent bottom driver bar identifying the courier (<em>Obasogie Adeoye</em>) with direct 1-tap call and in-app chat buttons.
+          </p>
+          <ul class="space-y-2 text-xs font-mono text-[var(--slate-muted)] pt-2">
+            <li class="flex items-center gap-2">✓ Turn-by-turn waypoint progress visualizer</li>
+            <li class="flex items-center gap-2">✓ In-app voice call & message bridge to driver</li>
+            <li class="flex items-center gap-2">✓ Shareable web tracking link for end customers</li>
+          </ul>
+        </div>
+        <div class="lg:col-span-7 mockup-frame h-[440px] bg-[#edf4f5]">
+          <img src="https://framerusercontent.com/images/quDVUL7pzJb8sgeNbiiCUe5Ks.jpg" alt="Live Map Tracking with Driver Card" class="w-full h-full object-cover">
+        </div>
+      </div>
+
+      <!-- Step 4: Milestone Progress Timeline -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 rounded-3xl bg-[var(--surface-card)] border border-[var(--border-subtle)]">
+        <div class="lg:col-span-7 order-2 lg:order-1 mockup-frame h-[440px] bg-[#eaf4ef]">
+          <img src="https://framerusercontent.com/images/dZW5XKZGkPeEfPXE43kQmO18c.jpg" alt="Order Details Milestone Timeline Screen" class="w-full h-full object-cover">
+        </div>
+        <div class="lg:col-span-5 order-1 lg:order-2 space-y-4">
+          <span class="inline-block px-3 py-1 rounded-full bg-[#eaf4ef] text-emerald-700 text-xs font-mono font-semibold">
+            Stage 04: Audit & Confirmation
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-bold text-[var(--charcoal)]">Timestamped Milestone Audits</h3>
+          <p class="text-sm text-[var(--slate-muted)] leading-relaxed">
+            Detailed tracking under Order ID (<code>#123987</code>) with timestamped progress checkpoints: <strong>Order Confirmed</strong> → <strong>Order Processed</strong> → <strong>Out for Delivery</strong> → <strong>Delivered</strong>, paired with a permanent digital receipt.
+          </p>
+          <ul class="space-y-2 text-xs font-mono text-[var(--slate-muted)] pt-2">
+            <li class="flex items-center gap-2">✓ Timestamped verification at every handover</li>
+            <li class="flex items-center gap-2">✓ Itemized weight and price audit records</li>
+            <li class="flex items-center gap-2">✓ Automated delivery confirmation SMS to recipient</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: SME IMPACT & RETENTION METRICS -->
+    <section class="max-w-4xl mx-auto mb-24 p-8 sm:p-12 rounded-3xl bg-[var(--surface-stone)]/50 border border-[var(--border-subtle)]">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-xs font-mono uppercase tracking-widest text-[var(--electric-orange)]">04 / Measurable SME Outcomes</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-[var(--charcoal)] mb-6">
+        Restoring customer trust and unlocking repeat orders for small retailers.
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4 border-t border-[var(--border-subtle)]">
+        <div>
+          <span class="text-3xl sm:text-4xl font-bold text-[var(--electric-orange)] font-mono">-35%</span>
+          <span class="block text-xs font-bold text-[var(--charcoal)] mt-1">Dispatch Errors</span>
+          <p class="text-xs text-[var(--slate-muted)] mt-1">Categorized package configuration cut fragile handling damages and misrouting.</p>
+        </div>
+        <div>
+          <span class="text-3xl sm:text-4xl font-bold text-[var(--deep-teal)] font-mono">4.8 / 5</span>
+          <span class="block text-xs font-bold text-[var(--charcoal)] mt-1">Buyer Satisfaction</span>
+          <p class="text-xs text-[var(--slate-muted)] mt-1">Direct driver communication and live map links turned delivery into a delight.</p>
+        </div>
+        <div>
+          <span class="text-3xl sm:text-4xl font-bold text-[var(--charcoal)] font-mono">2.5x</span>
+          <span class="block text-xs font-bold text-[var(--charcoal)] mt-1">Repeat Purchases</span>
+          <p class="text-xs text-[var(--slate-muted)] mt-1">Predictable delivery timelines restored shopper confidence in emerging online brands.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGINATION: PREVIOUS (WhatsApp Contextual Features) & NEXT (Power Management App - Full Loop) -->
+    <nav class="max-w-5xl mx-auto pt-16 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row items-center justify-between gap-6">
+      <a href="whatsappfeatures.html" class="group flex items-center gap-4 text-left">
+        <div>
+          <span class="text-[11px] font-mono text-[var(--slate-muted)] uppercase tracking-wider block">← Previous Case Study</span>
+          <span class="text-xl sm:text-2xl font-bold text-[var(--charcoal)] group-hover:text-[var(--deep-teal)] transition-colors">
+            WhatsApp Contextual Features
+          </span>
+        </div>
+      </a>
+      
+      <a href="powermanagement.html" class="group flex items-center gap-4 text-right">
+        <div>
+          <span class="text-[11px] font-mono text-[var(--electric-orange)] uppercase tracking-wider block font-semibold">Loop Back to Start</span>
+          <span class="text-xl sm:text-2xl font-bold text-[var(--charcoal)] group-hover:text-[var(--deep-teal)] transition-colors">
+            Power Management App ↗
+          </span>
+        </div>
+      </a>
+    </nav>
+
+  </article>
+
+  <!-- GLOBAL FOOTER -->
+  <footer id="contact" class="py-24 bg-[#14191a] text-[#f8f6f3] relative overflow-hidden border-t border-white/10">
+    <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[var(--deep-teal)]/20 blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-12 pb-16 border-b border-white/10">
+        <div class="max-w-2xl">
+          <span class="text-xs font-mono uppercase tracking-widest text-[var(--electric-orange)] block mb-4">Ready to turn ideas into impact?</span>
+          <h2 class="text-3xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white leading-tight">
+            I'd love to connect <span class="font-serif-editorial text-[var(--surface-stone)]">with you!</span>
+          </h2>
+        </div>
+
+        <div>
+          <a href="mailto:osazeabuhaymus@gmail.com" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[var(--electric-orange)] text-white font-medium text-sm sm:text-base tracking-wide transform hover:scale-105 active:scale-95 transition-all shadow-xl hover:bg-[#e04e00]">
+            <span>Send Email</span>
+            <span class="text-lg">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="pt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-xs font-mono">
+        <div>
+          <span class="text-white/40 block mb-3 uppercase tracking-wider">Email</span>
+          <a href="mailto:osazeabuhaymus@gmail.com" class="text-white hover:text-[var(--electric-orange)] transition-colors block mb-1">
+            osazeabuhaymus@gmail.com
+          </a>
+          <span class="text-white/60 block">Click to open your mail client</span>
+        </div>
+
+        <div>
+          <span class="text-white/40 block mb-3 uppercase tracking-wider">Resume</span>
+          <a href="https://bit.ly/amos-abu-cv" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[var(--electric-orange)] transition-colors block mb-1">
+            Download Resume (CV) ↗
+          </a>
+          <span class="text-white/60 block">Google Drive PDF</span>
+        </div>
+
+        <div>
+          <span class="text-white/40 block mb-3 uppercase tracking-wider">Social Channels</span>
+          <div class="flex flex-col gap-1.5">
+            <a href="https://www.linkedin.com/in/amos-abu/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[var(--electric-orange)] transition-colors">LinkedIn ↗</a>
+            <a href="https://x.com/amososaze" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[var(--electric-orange)] transition-colors">Twitter / X ↗</a>
+            <a href="https://www.tiktok.com/@sazzy_designz" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[var(--electric-orange)] transition-colors">TikTok ↗</a>
+            <a href="https://www.instagram.com/sazzy_lee" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[var(--electric-orange)] transition-colors">Instagram ↗</a>
+          </div>
+        </div>
+
+        <div>
+          <span class="text-white/40 block mb-3 uppercase tracking-wider">Location</span>
+          <span class="text-white block font-medium">Lagos, Nigeria (WAT / GMT+1)</span>
+          <span class="text-white/60 block mt-1">Available worldwide for remote contracts</span>
+        </div>
+      </div>
+
+      <div class="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-white/40 gap-4">
+        <span>© 2026 Amos Osaze Abu. All rights reserved.</span>
+        <span>Crafted with subtle interactions & high-contrast minimalism.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- THEME SCRIPT -->
+  <script>
+    function setTheme(mode) {
+      const htmlEl = document.documentElement;
+      const lightBtn = document.getElementById('theme-light-btn');
+      const darkBtn = document.getElementById('theme-dark-btn');
+
+      if (mode === 'dark') {
+        htmlEl.classList.add('dark');
+        htmlEl.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+
+        darkBtn.className = "w-8 h-8 rounded-full flex items-center justify-center transition-all text-xs bg-[var(--deep-teal)] text-white shadow-sm";
+        lightBtn.className = "w-8 h-8 rounded-full flex items-center justify-center transition-all text-xs text-[var(--slate-muted)] hover:text-[var(--charcoal)]";
+      } else {
+        htmlEl.classList.remove('dark');
+        htmlEl.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+
+        lightBtn.className = "w-8 h-8 rounded-full flex items-center justify-center transition-all text-xs bg-white text-[#192021] shadow-sm";
+        darkBtn.className = "w-8 h-8 rounded-full flex items-center justify-center transition-all text-xs text-[var(--slate-muted)] hover:text-[var(--charcoal)]";
+      }
+    }
+
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    setTheme(savedTheme);
+  </script>
+</body>
+</html>
