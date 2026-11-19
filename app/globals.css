@@ -12,13 +12,30 @@
   --charcoal: #192021;
   --slate-muted: #5e6667;
   --border-subtle: rgba(2, 95, 110, 0.12);
+  --card-bg-subtle: #f4f2ee;
 }
 
+html.dark,
+[data-theme="dark"] {
+  --bg-cream: #0c1011;
+  --surface-stone: #151a1b;
+  --surface-card: #1b2123;
+  --deep-teal: #1bb3cc;
+  --deep-teal-dark: #025f6e;
+  --electric-orange: #ff5900;
+  --charcoal: #f8f6f3;
+  --slate-muted: #959fa0;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --card-bg-subtle: #161c1e;
+}
+
+html,
 body {
   background-color: var(--bg-cream);
   color: var(--charcoal);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 ::selection {

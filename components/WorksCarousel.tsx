@@ -288,8 +288,8 @@ function DraggableRow({
               src={item.src}
               alt={item.title}
               draggable={false}
-              className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 pointer-events-none select-none"
-              loading="lazy"
+              className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 pointer-events-none select-none bg-[var(--surface-stone)]"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-5 sm:p-6 flex flex-col justify-between">
               <div className="flex items-center justify-between">

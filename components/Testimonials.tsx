@@ -31,15 +31,15 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-24 border-t border-[rgba(2,95,110,0.12)] bg-[#ebe9e4]/50">
+    <section className="py-24 border-t border-[var(--border-subtle)] bg-[var(--surface-stone)]/50 transition-colors">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between mb-12">
           <div>
             <span className="text-xs font-mono uppercase tracking-widest text-[#ff5900] block mb-1">
               Social Proof
             </span>
-            <h2 className="text-3xl sm:text-4xl font-medium tracking-tight text-[#192021]">
-              Kind words from <span className="font-serif-editorial text-[#025f6e]">Clients</span>
+            <h2 className="text-3xl sm:text-4xl font-medium tracking-tight text-[var(--charcoal)]">
+              Kind words from <span className="font-serif-editorial text-[var(--deep-teal)]">Clients</span>
             </h2>
           </div>
         </div>
@@ -52,14 +52,14 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.08 }}
-              className="p-6 rounded-2xl bg-white border border-[rgba(2,95,110,0.12)] flex flex-col justify-between shadow-sm hover:border-[#025f6e] transition-all"
+              className="p-6 rounded-2xl bg-[var(--surface-card)] border border-[var(--border-subtle)] flex flex-col justify-between shadow-sm hover:border-[var(--deep-teal)] transition-all"
             >
-              <p className="text-xs text-[#192021] leading-relaxed mb-6 font-normal">
+              <p className="text-xs text-[var(--charcoal)] leading-relaxed mb-6 font-normal">
                 "{item.quote}"
               </p>
-              <div className="pt-4 border-t border-[rgba(2,95,110,0.12)]">
-                <h5 className="text-xs font-bold text-[#192021]">{item.name}</h5>
-                <span className="text-[10px] font-mono text-[#5e6667]">{item.role}</span>
+              <div className="pt-4 border-t border-[var(--border-subtle)]">
+                <h5 className="text-xs font-bold text-[var(--charcoal)]">{item.name}</h5>
+                <span className="text-[10px] font-mono text-[var(--slate-muted)]">{item.role}</span>
               </div>
             </motion.div>
           ))}
