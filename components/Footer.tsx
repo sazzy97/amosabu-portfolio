@@ -20,10 +20,10 @@ export default function Footer() {
           </div>
 
           {/* Proper Rounded Pill Email Button */}
-          <div>
+          <div className="shrink-0">
             <a
               href="mailto:osazeabuhaymus@gmail.com"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#ff5900] text-white font-medium text-sm sm:text-base tracking-wide transform hover:scale-105 active:scale-95 transition-all shadow-xl hover:bg-[#e04e00] cursor-pointer"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#ff5900] text-white font-medium text-sm sm:text-base tracking-wide transform hover:scale-105 active:scale-95 transition-all shadow-xl hover:bg-[#e04e00] cursor-pointer shrink-0 whitespace-nowrap"
             >
               <span>Send Email</span>
               <span className="text-lg">↗</span>
@@ -31,13 +31,13 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Links Grid (All 6 Contact Rows from Live Site) */}
-        <div className="pt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-xs font-mono">
+        {/* Links Grid (2x2 on Tablet, 4 columns on Desktop) */}
+        <div className="pt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-xs font-mono">
           <div>
             <span className="text-white/40 block mb-3 uppercase tracking-wider">Email</span>
             <a
               href="mailto:osazeabuhaymus@gmail.com"
-              className="text-white hover:text-[#ff5900] transition-colors block mb-1 font-medium"
+              className="text-white hover:text-[#ff5900] transition-colors block mb-1 font-medium break-all sm:break-normal"
             >
               osazeabuhaymus@gmail.com
             </a>
@@ -104,8 +104,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-white/40 gap-4">
+        {/* Bottom Bar (with padding for mobile floating theme toggle) */}
+        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-white/40 gap-4 pb-20 sm:pb-0 pr-16 sm:pr-0">
           <span>© 2026 Amos Osaze Abu. All rights reserved.</span>
           <span>Crafted with Next.js, Tailwind CSS & Framer Motion.</span>
         </div>
