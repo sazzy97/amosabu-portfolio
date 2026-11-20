@@ -21,12 +21,8 @@ export default function CustomCursor() {
     const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
     if (!hasFinePointer) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isVisible) setIsVisible(true);
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-
-      const target = e.target as HTMLElement | null;
+    const updateCursorState = (x: number, y: number) => {
+      const target = document.elementFromPoint(x, y) as HTMLElement | null;
       if (!target) return;
 
       const cursorTarget = target.closest("[data-cursor]");
@@ -44,15 +40,30 @@ export default function CustomCursor() {
       }
     };
 
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isVisible) setIsVisible(true);
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+      updateCursorState(e.clientX, e.clientY);
+    };
+
+    const handleScroll = () => {
+      if (isVisible) {
+        updateCursorState(mouseX.get(), mouseY.get());
+      }
+    };
+
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     document.addEventListener("mouseleave", handleMouseLeave);
     document.addEventListener("mouseenter", handleMouseEnter);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("mouseenter", handleMouseEnter);
     };

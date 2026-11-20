@@ -1390,19 +1390,7 @@
     let isCursorActive = false;
 
     if (window.matchMedia('(pointer: fine)').matches && cursorDot && cursorRing) {
-      window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        if (!isCursorActive) {
-          isCursorActive = true;
-          cursorDot.style.opacity = '1';
-          cursorRing.style.opacity = '1';
-        }
-
-        cursorDot.style.left = `${mouseX}px`;
-        cursorDot.style.top = `${mouseY}px`;
-
-        const target = e.target;
+      function updateCursor(target) {
         const dragZone = target ? target.closest('[data-cursor="drag"]') : null;
         const viewZone = target ? target.closest('[data-cursor="view"]') : null;
         const linkZone = target ? target.closest('a, button, [role="button"]') : null;
@@ -1443,6 +1431,27 @@
           cursorRing.style.border = '1.5px solid rgba(100, 116, 139, 0.4)';
           cursorRing.style.boxShadow = 'none';
           cursorRing.innerHTML = '';
+        }
+      }
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (!isCursorActive) {
+          isCursorActive = true;
+          cursorDot.style.opacity = '1';
+          cursorRing.style.opacity = '1';
+        }
+
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+        updateCursor(e.target);
+      }, { passive: true });
+
+      window.addEventListener('scroll', () => {
+        if (isCursorActive) {
+          const target = document.elementFromPoint(mouseX, mouseY);
+          updateCursor(target);
         }
       }, { passive: true });
 
