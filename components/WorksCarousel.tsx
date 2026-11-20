@@ -258,6 +258,7 @@ function DraggableRow({
 
       <div
         ref={trackRef}
+        data-cursor="drag"
         onMouseDown={(e) => onPointerDown(e.clientX)}
         onMouseMove={(e) => onPointerMove(e.clientX)}
         onMouseUp={onPointerUp}

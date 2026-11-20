@@ -67,7 +67,8 @@ export default function FeaturedWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="group relative block h-[380px] sm:h-[460px] rounded-2xl overflow-hidden bg-[var(--surface-stone)]/30 hover:-translate-y-1 transition-all duration-300 shadow-sm"
+              data-cursor="view"
+              className="group relative block h-[380px] sm:h-[460px] rounded-2xl overflow-hidden bg-[var(--surface-stone)]/30 hover:-translate-y-1 transition-all duration-300 shadow-sm cursor-pointer"
             >
               {/* Pure Mockup Image */}
               <img

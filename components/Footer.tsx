@@ -1,6 +1,7 @@
 "use client";
 
 import LagosClock from "./LagosClock";
+import MagneticButton from "./MagneticButton";
 
 export default function Footer() {
   return (
@@ -19,15 +20,17 @@ export default function Footer() {
             </h2>
           </div>
 
-          {/* Proper Rounded Pill Email Button */}
+          {/* Proper Rounded Pill Email Button with Magnetic Physics */}
           <div className="shrink-0">
-            <a
-              href="mailto:osazeabuhaymus@gmail.com"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#ff5900] text-white font-medium text-sm sm:text-base tracking-wide transform hover:scale-105 active:scale-95 transition-all shadow-xl hover:bg-[#e04e00] cursor-pointer shrink-0 whitespace-nowrap"
-            >
-              <span>Send Email</span>
-              <span className="text-lg">↗</span>
-            </a>
+            <MagneticButton strength={0.35}>
+              <a
+                href="mailto:osazeabuhaymus@gmail.com"
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#ff5900] text-white font-medium text-sm sm:text-base tracking-wide transform hover:scale-105 active:scale-95 transition-all shadow-xl hover:bg-[#e04e00] cursor-pointer shrink-0 whitespace-nowrap"
+              >
+                <span>Send Email</span>
+                <span className="text-lg">↗</span>
+              </a>
+            </MagneticButton>
           </div>
         </div>
 

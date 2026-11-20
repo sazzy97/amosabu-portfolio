@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import MagneticButton from "./MagneticButton";
 
 export default function BehindTheCanvas() {
   return (
@@ -39,13 +40,15 @@ export default function BehindTheCanvas() {
             </div>
 
             <div className="mt-8 flex items-center gap-4">
-              <a
-                href="#contact"
-                className="px-6 py-3 rounded-full bg-white text-[#07181c] text-xs font-bold tracking-wide hover:bg-[#ebe9e4] transition-all transform hover:-translate-y-0.5 shadow-lg flex items-center gap-1.5"
-              >
-                <span>Let's connect!</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
+              <MagneticButton strength={0.3}>
+                <a
+                  href="#contact"
+                  className="px-6 py-3 rounded-full bg-white text-[#07181c] text-xs font-bold tracking-wide hover:bg-[#ebe9e4] transition-all transform hover:-translate-y-0.5 shadow-lg flex items-center gap-1.5"
+                >
+                  <span>Let's connect!</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+              </MagneticButton>
               <a
                 href="https://bit.ly/amos-abu-cv"
                 target="_blank"

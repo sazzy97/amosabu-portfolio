@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import MagneticButton from "./MagneticButton";
 
 export default function Navbar() {
   return (
@@ -47,13 +48,15 @@ export default function Navbar() {
         >
           Resume ↗
         </a>
-        <a
-          href="#contact"
-          className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-[#025f6e] text-white text-xs font-medium tracking-wide hover:bg-[#01434e] transition-all transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm flex items-center gap-1.5 shrink-0 whitespace-nowrap"
-        >
-          <span>Chat with me</span>
-          <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />
-        </a>
+        <MagneticButton strength={0.25}>
+          <a
+            href="#contact"
+            className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-[#025f6e] text-white text-xs font-medium tracking-wide hover:bg-[#01434e] transition-all transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm flex items-center gap-1.5 shrink-0 whitespace-nowrap"
+          >
+            <span>Chat with me</span>
+            <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />
+          </a>
+        </MagneticButton>
       </nav>
     </header>
   );

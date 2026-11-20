@@ -144,6 +144,13 @@
 </head>
 <body class="min-h-screen text-[var(--charcoal)] antialiased relative overflow-x-hidden">
 
+  <!-- TOP SCROLL PROGRESS BAR -->
+  <div id="scroll-progress-bar" class="fixed top-0 left-0 right-0 h-[2.5px] bg-[#ff5900] origin-left z-50 pointer-events-none shadow-[0_0_10px_rgba(255,89,0,0.7)]" style="transform: scaleX(0);"></div>
+
+  <!-- SNELLENBERG CUSTOM CURSOR (Active on fine pointer / desktop) -->
+  <div id="cursor-dot" class="fixed top-0 left-0 w-2 h-2 rounded-full bg-[#ff5900] pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 opacity-0 hidden md:block"></div>
+  <div id="cursor-ring" class="fixed top-0 left-0 w-8 h-8 rounded-full border border-slate-500/40 pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 flex items-center justify-center font-mono text-[10px] font-bold tracking-widest uppercase transition-[width,height,background-color,border-color,border-radius,box-shadow] duration-200 opacity-0 hidden md:flex text-white"></div>
+
   <!-- FIXED FLOATING THEME TOGGLE (Olamide Oladehinde Style) -->
   <aside class="fixed bottom-6 right-6 z-50">
     <div class="p-1 rounded-full bg-[var(--surface-stone)]/80 backdrop-blur-md border border-[var(--border-subtle)] shadow-xl flex items-center gap-1">
@@ -188,7 +195,7 @@
       <a href="#capabilities" class="hidden md:inline-block text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors whitespace-nowrap">Capabilities</a>
       <a href="#about" class="hidden lg:inline-block text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors whitespace-nowrap">Behind The Canvas</a>
       <a href="https://bit.ly/amos-abu-cv" target="_blank" class="hidden sm:inline-block text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors whitespace-nowrap">Resume ↗</a>
-      <a href="#contact" class="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-[var(--deep-teal)] text-white text-xs font-medium tracking-wide hover:bg-[var(--deep-teal-dark)] transition-all transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm flex items-center gap-1.5 shrink-0 whitespace-nowrap">
+      <a href="#contact" class="magnetic-btn px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-[var(--deep-teal)] text-white text-xs font-medium tracking-wide hover:bg-[var(--deep-teal-dark)] transition-all transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm flex items-center gap-1.5 shrink-0 whitespace-nowrap">
         <span>Chat with me</span>
         <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
       </a>
@@ -255,7 +262,7 @@
         <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-[var(--bg-cream)] to-transparent z-20"></div>
         <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-[var(--bg-cream)] to-transparent z-20"></div>
 
-        <div id="web-stream-track" class="stream-track-draggable">
+        <div id="web-stream-track" class="stream-track-draggable" data-cursor="drag">
           
           <!-- Web 1: ClauseCore -->
           <div class="stream-card w-[400px] sm:w-[480px] md:w-[540px] h-[260px] sm:h-[310px] md:h-[350px] rounded-2xl group" onclick="openSnapshotModal('snapshots/clausecore_hero_section.jpg', 'ClauseCore Hero Section', 'Legal AI SaaS • Web Platform', 'Modern contract intelligence & automated compliance workflow')">
@@ -472,7 +479,7 @@
         <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-[var(--bg-cream)] to-transparent z-20"></div>
         <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-[var(--bg-cream)] to-transparent z-20"></div>
 
-        <div id="mobile-stream-track" class="stream-track-draggable">
+        <div id="mobile-stream-track" class="stream-track-draggable" data-cursor="drag">
           
           <!-- Mobile 1: Crust Personal -->
           <div class="stream-card w-[180px] sm:w-[220px] md:w-[240px] h-[360px] sm:h-[440px] md:h-[480px] rounded-[28px] sm:rounded-[32px] group" onclick="openSnapshotModal('snapshots/crust_personal.jpg', 'Crust Personal Banking', 'Fintech • Mobile Banking', 'Personal accounts, multi-currency balances & tier management')">
@@ -762,7 +769,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-10">
         
         <!-- CARD 1: Power Management App -->
-        <a href="powermanagement.html" class="work-tile group block h-[380px] sm:h-[460px]">
+        <a href="powermanagement.html" data-cursor="view" class="work-tile group block h-[380px] sm:h-[460px]">
           <img 
             src="https://framerusercontent.com/images/E7kdxsmgsxh1cRz0Cjp6eOV8hLY.jpg?scale-down-to=1024" 
             alt="Power Management App" 
@@ -790,7 +797,7 @@
         </a>
 
         <!-- CARD 2: GasHub -->
-        <a href="gashub.html" class="work-tile group block h-[380px] sm:h-[460px]">
+        <a href="gashub.html" data-cursor="view" class="work-tile group block h-[380px] sm:h-[460px]">
           <img 
             src="https://framerusercontent.com/images/quqyGUfCaeq5quBMslxJ54frZ7g.jpg?scale-down-to=1024" 
             alt="GasHub" 
@@ -816,7 +823,7 @@
         </a>
 
         <!-- CARD 3: WhatsApp New Features -->
-        <a href="whatsappfeatures.html" class="work-tile group block h-[380px] sm:h-[460px]">
+        <a href="whatsappfeatures.html" data-cursor="view" class="work-tile group block h-[380px] sm:h-[460px]">
           <img 
             src="https://framerusercontent.com/images/DvIpMdUMxYmCMgOGBaHvLBE5EGI.jpg?scale-down-to=1024" 
             alt="Whatsapp New Features" 
@@ -842,7 +849,7 @@
         </a>
 
         <!-- CARD 4: SwiftLog App -->
-        <a href="swiftlog.html" class="work-tile group block h-[380px] sm:h-[460px]">
+        <a href="swiftlog.html" data-cursor="view" class="work-tile group block h-[380px] sm:h-[460px]">
           <img 
             src="https://framerusercontent.com/images/9rTYenpafgEE6KdztXmhNkGpM.jpg?scale-down-to=1024" 
             alt="SwiftLog App" 
@@ -946,7 +953,7 @@
           </div>
 
           <div class="mt-8 flex items-center gap-4">
-            <a href="#contact" class="px-6 py-3 rounded-full bg-white text-[#07181c] text-xs font-bold tracking-wide hover:bg-[#ebe9e4] transition-all transform hover:-translate-y-0.5 shadow-lg flex items-center gap-2">
+            <a href="#contact" class="magnetic-btn px-6 py-3 rounded-full bg-white text-[#07181c] text-xs font-bold tracking-wide hover:bg-[#ebe9e4] transition-all transform hover:-translate-y-0.5 shadow-lg flex items-center gap-2">
               <span>Let's connect!</span>
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </a>
@@ -1091,7 +1098,7 @@
         </div>
 
         <div class="shrink-0">
-          <a href="mailto:osazeabuhaymus@gmail.com" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[var(--electric-orange)] text-white font-medium text-sm sm:text-base tracking-wide transform hover:scale-105 active:scale-95 transition-all shadow-xl hover:bg-[#e04e00] shrink-0 whitespace-nowrap">
+          <a href="mailto:osazeabuhaymus@gmail.com" class="magnetic-btn inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[var(--electric-orange)] text-white font-medium text-sm sm:text-base tracking-wide transform hover:scale-105 active:scale-95 transition-all shadow-xl hover:bg-[#e04e00] shrink-0 whitespace-nowrap">
             <span>Send Email</span>
             <span class="text-lg">↗</span>
           </a>
@@ -1366,6 +1373,117 @@
     // Initialize saved or system preference
     const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     setTheme(savedTheme);
+
+    // --- 1. TOP SCROLL PROGRESS BAR ---
+    const progressBar = document.getElementById('scroll-progress-bar');
+    window.addEventListener('scroll', () => {
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = totalScroll > 0 ? (window.scrollY / totalScroll) : 0;
+      if (progressBar) progressBar.style.transform = `scaleX(${progress})`;
+    }, { passive: true });
+
+    // --- 2. SNELLENBERG CUSTOM CURSOR & CONTEXTUAL MORPHING ---
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
+    let mouseX = -100, mouseY = -100;
+    let ringX = -100, ringY = -100;
+    let isCursorActive = false;
+
+    if (window.matchMedia('(pointer: fine)').matches && cursorDot && cursorRing) {
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (!isCursorActive) {
+          isCursorActive = true;
+          cursorDot.style.opacity = '1';
+          cursorRing.style.opacity = '1';
+        }
+
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+
+        const target = e.target;
+        const dragZone = target ? target.closest('[data-cursor="drag"]') : null;
+        const viewZone = target ? target.closest('[data-cursor="view"]') : null;
+        const linkZone = target ? target.closest('a, button, [role="button"]') : null;
+
+        if (dragZone) {
+          cursorDot.style.opacity = '0';
+          cursorRing.style.width = '96px';
+          cursorRing.style.height = '34px';
+          cursorRing.style.borderRadius = '9999px';
+          cursorRing.style.backgroundColor = 'rgba(255, 89, 0, 0.95)';
+          cursorRing.style.border = 'none';
+          cursorRing.style.boxShadow = '0 10px 25px -5px rgba(0,0,0,0.3)';
+          cursorRing.innerHTML = '← DRAG →';
+        } else if (viewZone) {
+          cursorDot.style.opacity = '0';
+          cursorRing.style.width = '78px';
+          cursorRing.style.height = '78px';
+          cursorRing.style.borderRadius = '50%';
+          cursorRing.style.backgroundColor = 'rgba(2, 95, 110, 0.95)';
+          cursorRing.style.border = 'none';
+          cursorRing.style.boxShadow = '0 10px 25px -5px rgba(0,0,0,0.3)';
+          cursorRing.innerHTML = '<span class="flex flex-col items-center text-[11px] leading-tight"><span>VIEW</span><span>↗</span></span>';
+        } else if (linkZone) {
+          cursorDot.style.opacity = '0';
+          cursorRing.style.width = '48px';
+          cursorRing.style.height = '48px';
+          cursorRing.style.borderRadius = '50%';
+          cursorRing.style.backgroundColor = 'rgba(255, 89, 0, 0.15)';
+          cursorRing.style.border = '1.5px solid rgba(255, 89, 0, 0.5)';
+          cursorRing.style.boxShadow = 'none';
+          cursorRing.innerHTML = '';
+        } else {
+          cursorDot.style.opacity = '1';
+          cursorRing.style.width = '32px';
+          cursorRing.style.height = '32px';
+          cursorRing.style.borderRadius = '50%';
+          cursorRing.style.backgroundColor = 'transparent';
+          cursorRing.style.border = '1.5px solid rgba(100, 116, 139, 0.4)';
+          cursorRing.style.boxShadow = 'none';
+          cursorRing.innerHTML = '';
+        }
+      }, { passive: true });
+
+      document.addEventListener('mouseleave', () => {
+        cursorDot.style.opacity = '0';
+        cursorRing.style.opacity = '0';
+      });
+
+      // Smooth trailing ring lerp loop
+      function renderCursorRing() {
+        ringX += (mouseX - ringX) * 0.16;
+        ringY += (mouseY - ringY) * 0.16;
+        cursorRing.style.left = `${ringX}px`;
+        cursorRing.style.top = `${ringY}px`;
+        requestAnimationFrame(renderCursorRing);
+      }
+      requestAnimationFrame(renderCursorRing);
+    }
+
+    // --- 3. SNELLENBERG MAGNETIC BUTTON PHYSICS ---
+    if (window.matchMedia('(pointer: fine)').matches) {
+      document.querySelectorAll('.magnetic-btn').forEach((btn) => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          const deltaX = (e.clientX - centerX) * 0.32;
+          const deltaY = (e.clientY - centerY) * 0.32;
+          btn.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate(0px, 0px)';
+          btn.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+        });
+
+        btn.addEventListener('mouseenter', () => {
+          btn.style.transition = 'none';
+        });
+      });
+    }
   </script>
 </body>
 </html>

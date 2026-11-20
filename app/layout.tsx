@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import React from "react";
 import "./globals.css";
+import CustomCursor from "@/components/CustomCursor";
+import ScrollProgress from "@/components/ScrollProgress";
 
 export const metadata: Metadata = {
   title: "Amos Osaze Abu — Digital Product Designer",
@@ -54,6 +56,8 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased selection:bg-[#ff5900] selection:text-white">
+        <ScrollProgress />
+        <CustomCursor />
         {children}
       </body>
     </html>
