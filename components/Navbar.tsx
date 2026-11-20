@@ -41,7 +41,7 @@ export default function Navbar() {
           Behind The Canvas
         </a>
         <a
-          href="https://bit.ly/amos-abu-cv"
+          href="/Amos-Osaze-Abu-Resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="hidden sm:inline-block text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors whitespace-nowrap"

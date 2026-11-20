@@ -50,14 +50,14 @@ export default function Footer() {
           <div>
             <span className="text-white/40 block mb-3 uppercase tracking-wider">Resume</span>
             <a
-              href="https://bit.ly/amos-abu-cv"
+              href="/Amos-Osaze-Abu-Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-[#ff5900] transition-colors block mb-1 font-medium"
             >
               Download Resume (CV) ↗
             </a>
-            <span className="text-white/60 block">Google Drive PDF</span>
+            <span className="text-white/60 block">Official PDF • 4 Yrs Exp</span>
           </div>
 
           <div>
@@ -80,7 +80,7 @@ export default function Footer() {
                 Twitter / X ↗
               </a>
               <a
-                href="https://www.tiktok.com/@sazzy_designz"
+                href="https://www.tiktok.com/@amos_abu"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:text-[#ff5900] transition-colors"

@@ -50,9 +50,10 @@ export default function BehindTheCanvas() {
                 </a>
               </MagneticButton>
               <a
-                href="https://bit.ly/amos-abu-cv"
+                href="/Amos-Osaze-Abu-Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
+                download="Amos-Osaze-Abu-Resume.pdf"
                 className="px-5 py-3 rounded-full border border-white/20 text-white text-xs font-mono hover:bg-white/10 transition-colors"
               >
                 Download CV ↗
