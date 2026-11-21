@@ -43,8 +43,8 @@ export default function Hero() {
           {/* Quick Credentials Summary */}
           <div className="md:col-span-4 flex flex-col gap-3 font-mono text-xs">
             <div className="flex items-center justify-between pb-2 border-b border-[var(--border-subtle)]">
-              <span className="text-[var(--slate-muted)]">Location</span>
-              <span className="text-[var(--charcoal)] font-semibold">Lagos, NG (Worldwide)</span>
+              <span className="text-[var(--slate-muted)]">Availability</span>
+              <span className="text-[var(--charcoal)] font-semibold">Worldwide (Remote)</span>
             </div>
             <div className="flex items-center justify-between pb-2 border-b border-[var(--border-subtle)]">
               <span className="text-[var(--slate-muted)]">Core Disciplines</span>

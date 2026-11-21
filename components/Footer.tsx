@@ -45,26 +45,15 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Links Grid (2x2 on Tablet, 4 columns on Desktop) */}
-        <div className="pt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-xs font-mono">
-          <div>
-            <span className="text-white/40 block mb-3 uppercase tracking-wider">Email</span>
-            <a
-              href="mailto:osazeabuhaymus@gmail.com"
-              className="text-white hover:text-[#ff5900] transition-colors block mb-1 font-medium break-all sm:break-normal"
-            >
-              osazeabuhaymus@gmail.com
-            </a>
-            <span className="text-white/60 block">Click to open your mail client</span>
-          </div>
-
+        {/* Links Grid (3 columns on Tablet & Desktop) */}
+        <div className="pt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-xs font-mono">
           <div>
             <span className="text-white/40 block mb-3 uppercase tracking-wider">Resume</span>
             <a
               href="/Amos-Osaze-Abu-Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-[#ff5900] transition-colors block mb-1 font-medium"
+              className="text-white hover:text-[#ff5900] transition-colors block mb-1 font-medium text-sm"
             >
               Download Resume (CV) ↗
             </a>
@@ -72,8 +61,8 @@ export default function Footer() {
           </div>
 
           <div>
-            <span className="text-white/40 block mb-3 uppercase tracking-wider">Social Channels</span>
-            <div className="flex flex-col gap-1.5">
+            <span className="text-white/40 block mb-3 uppercase tracking-wider">Connect & Socials</span>
+            <div className="flex flex-col gap-2">
               <a
                 href="https://wa.me/2348138265592?text=Hi%20Amos!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20a%20project%20with%20you."
                 target="_blank"
@@ -118,11 +107,11 @@ export default function Footer() {
           </div>
 
           <div>
-            <span className="text-white/40 block mb-3 uppercase tracking-wider">Location & Time</span>
-            <span className="text-white block font-medium">Lagos, Nigeria (WAT / GMT+1)</span>
-            <div className="text-white/60 block mt-1">
+            <span className="text-white/40 block mb-3 uppercase tracking-wider">Current Time</span>
+            <div className="text-white text-base font-semibold">
               <LagosClock showSeconds={true} />
             </div>
+            <span className="text-white/60 block mt-1">Available for global remote work</span>
           </div>
         </div>
 

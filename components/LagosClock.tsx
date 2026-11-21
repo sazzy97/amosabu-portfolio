@@ -19,7 +19,7 @@ export default function LagosClock({ showSeconds = false }: LagosClockProps) {
         ...(showSeconds ? { second: "2-digit" } : {}),
         hour12: false,
       };
-      setTimeStr(now.toLocaleTimeString("en-GB", options) + " WAT");
+      setTimeStr(now.toLocaleTimeString("en-GB", options) + " (GMT+1)");
     }
 
     update();
@@ -28,7 +28,7 @@ export default function LagosClock({ showSeconds = false }: LagosClockProps) {
   }, [showSeconds]);
 
   if (!timeStr) {
-    return <span className="tabular-nums">--:-- WAT</span>;
+    return <span className="tabular-nums">--:-- (GMT+1)</span>;
   }
 
   return <span className="tabular-nums font-semibold">{timeStr}</span>;
