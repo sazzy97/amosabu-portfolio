@@ -116,9 +116,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar (with padding for mobile floating theme toggle) */}
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-white/40 gap-4 pb-20 sm:pb-0 pr-16 sm:pr-0">
+        <div className="mt-16 pt-8 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-white/40 pb-20 sm:pb-0 pr-16 sm:pr-0">
           <span>© 2026 Amos Osaze Abu. All rights reserved.</span>
-          <span>Crafted with Next.js, Tailwind CSS & Framer Motion.</span>
         </div>
       </div>
     </footer>
