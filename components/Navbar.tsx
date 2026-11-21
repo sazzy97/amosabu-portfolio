@@ -50,7 +50,9 @@ export default function Navbar() {
         </a>
         <MagneticButton strength={0.25}>
           <a
-            href="#contact"
+            href="https://wa.me/2348138265592?text=Hi%20Amos!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20a%20project%20with%20you."
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-[#025f6e] text-white text-xs font-medium tracking-wide hover:bg-[#01434e] transition-all transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm flex items-center gap-1.5 shrink-0 whitespace-nowrap"
           >
             <span>Chat with me</span>

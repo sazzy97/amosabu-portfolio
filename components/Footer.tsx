@@ -20,15 +20,26 @@ export default function Footer() {
             </h2>
           </div>
 
-          {/* Proper Rounded Pill Email Button with Magnetic Physics */}
-          <div className="shrink-0">
+          {/* Action CTAs: Chat with me (WhatsApp) + Send Email */}
+          <div className="shrink-0 flex flex-wrap items-center gap-3 sm:gap-4">
             <MagneticButton strength={0.35}>
               <a
+                href="https://wa.me/2348138265592?text=Hi%20Amos!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20a%20project%20with%20you."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-[#25D366] text-black font-semibold text-sm sm:text-base tracking-wide transform hover:scale-105 active:scale-95 transition-all shadow-xl hover:bg-[#20ba5a] cursor-pointer shrink-0 whitespace-nowrap"
+              >
+                <span>Chat with me</span>
+                <span className="text-base sm:text-lg">↗</span>
+              </a>
+            </MagneticButton>
+            <MagneticButton strength={0.25}>
+              <a
                 href="mailto:osazeabuhaymus@gmail.com"
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#ff5900] text-white font-medium text-sm sm:text-base tracking-wide transform hover:scale-105 active:scale-95 transition-all shadow-xl hover:bg-[#e04e00] cursor-pointer shrink-0 whitespace-nowrap"
+                className="inline-flex items-center gap-2.5 px-6 py-3.5 sm:px-7 sm:py-4 rounded-full border border-white/20 text-white font-medium text-sm sm:text-base tracking-wide transform hover:scale-105 active:scale-95 transition-all shadow-lg hover:bg-white/10 cursor-pointer shrink-0 whitespace-nowrap"
               >
                 <span>Send Email</span>
-                <span className="text-lg">↗</span>
+                <span className="text-base sm:text-lg">↗</span>
               </a>
             </MagneticButton>
           </div>
@@ -37,14 +48,21 @@ export default function Footer() {
         {/* Links Grid (2x2 on Tablet, 4 columns on Desktop) */}
         <div className="pt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-xs font-mono">
           <div>
-            <span className="text-white/40 block mb-3 uppercase tracking-wider">Email</span>
+            <span className="text-white/40 block mb-3 uppercase tracking-wider">Direct Reach</span>
+            <a
+              href="https://wa.me/2348138265592?text=Hi%20Amos!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20a%20project%20with%20you."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#25D366] hover:underline transition-colors block mb-1 font-medium"
+            >
+              WhatsApp (+234 813 826 5592) ↗
+            </a>
             <a
               href="mailto:osazeabuhaymus@gmail.com"
-              className="text-white hover:text-[#ff5900] transition-colors block mb-1 font-medium break-all sm:break-normal"
+              className="text-white hover:text-[#ff5900] transition-colors block font-medium break-all sm:break-normal"
             >
               osazeabuhaymus@gmail.com
             </a>
-            <span className="text-white/60 block">Click to open your mail client</span>
           </div>
 
           <div>
@@ -63,6 +81,14 @@ export default function Footer() {
           <div>
             <span className="text-white/40 block mb-3 uppercase tracking-wider">Social Channels</span>
             <div className="flex flex-col gap-1.5">
+              <a
+                href="https://wa.me/2348138265592?text=Hi%20Amos!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20a%20project%20with%20you."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-[#25D366] transition-colors"
+              >
+                WhatsApp ↗
+              </a>
               <a
                 href="https://www.linkedin.com/in/amos-abu/"
                 target="_blank"
