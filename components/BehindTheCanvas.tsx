@@ -47,7 +47,7 @@ export default function BehindTheCanvas() {
                   rel="noopener noreferrer"
                   className="px-6 py-3 rounded-full bg-white text-[#07181c] text-xs font-bold tracking-wide hover:bg-[#ebe9e4] transition-all transform hover:-translate-y-0.5 shadow-lg flex items-center gap-1.5"
                 >
-                  <span>Chat with me</span>
+                  <span>Let's connect!</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
               </MagneticButton>
