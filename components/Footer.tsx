@@ -48,21 +48,14 @@ export default function Footer() {
         {/* Links Grid (2x2 on Tablet, 4 columns on Desktop) */}
         <div className="pt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-xs font-mono">
           <div>
-            <span className="text-white/40 block mb-3 uppercase tracking-wider">Direct Reach</span>
-            <a
-              href="https://wa.me/2348138265592?text=Hi%20Amos!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20a%20project%20with%20you."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#25D366] hover:underline transition-colors block mb-1 font-medium"
-            >
-              WhatsApp (+234 813 826 5592) ↗
-            </a>
+            <span className="text-white/40 block mb-3 uppercase tracking-wider">Email</span>
             <a
               href="mailto:osazeabuhaymus@gmail.com"
-              className="text-white hover:text-[#ff5900] transition-colors block font-medium break-all sm:break-normal"
+              className="text-white hover:text-[#ff5900] transition-colors block mb-1 font-medium break-all sm:break-normal"
             >
               osazeabuhaymus@gmail.com
             </a>
+            <span className="text-white/60 block">Click to open your mail client</span>
           </div>
 
           <div>
