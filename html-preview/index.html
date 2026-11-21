@@ -178,32 +178,75 @@
     </div>
   </aside>
 
-  <!-- NAVIGATION HEADER -->
-  <header class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6 flex items-center justify-between text-sm sticky top-0 z-40 bg-[var(--bg-cream)]/90 backdrop-blur-md border-b border-[var(--border-subtle)]/40 transition-all">
-    <!-- Brand Wordmark -->
-    <a href="#" class="group flex items-center gap-2.5 sm:gap-3 shrink-0">
-      <div class="w-2.5 h-2.5 rounded-full bg-[var(--electric-orange)] shrink-0"></div>
-      <div class="leading-tight">
-        <span class="font-bold tracking-tight text-sm sm:text-base text-[var(--charcoal)] group-hover:text-[var(--deep-teal)] transition-colors whitespace-nowrap block">Amos O. Abu</span>
-        <span class="text-[11px] sm:text-xs text-[var(--slate-muted)] hidden sm:block font-mono whitespace-nowrap">Digital Product Designer</span>
-      </div>
-    </a>
-
-    <!-- Navigation Links & CTA -->
-    <nav class="flex items-center gap-3 sm:gap-6">
-      <a href="#works" class="text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors whitespace-nowrap">Works</a>
-      <a href="#capabilities" class="hidden md:inline-block text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors whitespace-nowrap">Capabilities</a>
-      <a href="#about" class="hidden lg:inline-block text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors whitespace-nowrap">Behind The Canvas</a>
-      <a href="/Amos-Osaze-Abu-Resume.pdf" target="_blank" class="hidden sm:inline-block text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors whitespace-nowrap">Resume ↗</a>
-      <a href="#contact" class="magnetic-btn px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-[var(--deep-teal)] text-white text-xs font-medium tracking-wide hover:bg-[var(--deep-teal-dark)] transition-all transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm flex items-center gap-1.5 shrink-0 whitespace-nowrap">
-        <span>Chat with me</span>
-        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+    <!-- NAVIGATION HEADER (Fixed with Mobile Menu) -->
+  <header class="fixed top-0 left-0 right-0 z-40 w-full bg-[var(--bg-cream)]/90 backdrop-blur-md border-b border-[var(--border-subtle)] transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between text-sm">
+      <!-- Brand Wordmark -->
+      <a href="#" class="group flex items-center gap-2.5 sm:gap-3 shrink-0">
+        <div class="w-2.5 h-2.5 rounded-full bg-[var(--electric-orange)] shrink-0"></div>
+        <div class="leading-tight">
+          <span class="font-bold tracking-tight text-sm sm:text-base text-[var(--charcoal)] group-hover:text-[var(--deep-teal)] transition-colors whitespace-nowrap block">Amos O. Abu</span>
+          <span class="text-[11px] sm:text-xs text-[var(--slate-muted)] hidden sm:block font-mono whitespace-nowrap">Digital Product Designer</span>
+        </div>
       </a>
-    </nav>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6">
+        <a href="#works" class="text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors whitespace-nowrap">Works</a>
+        <a href="#capabilities" class="text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors whitespace-nowrap">Capabilities</a>
+        <a href="#about" class="text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors whitespace-nowrap">Behind The Canvas</a>
+        <a href="/Amos-Osaze-Abu-Resume.pdf" target="_blank" class="text-xs font-mono uppercase tracking-wider text-[var(--slate-muted)] hover:text-[var(--deep-teal)] transition-colors whitespace-nowrap">Resume ↗</a>
+        <a href="https://wa.me/2348138265592?text=Hi%20Amos!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20a%20project%20with%20you." target="_blank" rel="noopener noreferrer" class="magnetic-btn px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-[var(--deep-teal)] text-white text-xs font-medium tracking-wide hover:bg-[var(--deep-teal-dark)] transition-all transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm flex items-center gap-1.5 shrink-0 whitespace-nowrap">
+          <span>Chat with me</span>
+          <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+      </nav>
+
+      <!-- Mobile Right Controls -->
+      <div class="flex md:hidden items-center gap-2">
+        <a href="https://wa.me/2348138265592?text=Hi%20Amos!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20a%20project%20with%20you." target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-full bg-[var(--deep-teal)] text-white text-xs font-medium tracking-wide flex items-center gap-1 shadow-sm shrink-0">
+          <span>Chat</span>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+        <button type="button" onclick="document.getElementById('mobile-drawer').classList.toggle('hidden')" aria-label="Toggle menu" class="w-9 h-9 rounded-full border border-[var(--border-subtle)] bg-[var(--surface-stone)]/80 flex items-center justify-center text-[var(--charcoal)] active:scale-95 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Overlay -->
+    <div id="mobile-drawer" class="hidden md:hidden bg-[var(--bg-cream)] border-b border-[var(--border-subtle)] shadow-2xl px-6 py-6 transition-colors">
+      <div class="flex flex-col gap-1 divide-y divide-[var(--border-subtle)]">
+        <a href="#works" onclick="document.getElementById('mobile-drawer').classList.add('hidden')" class="py-3.5 flex items-center justify-between">
+          <div><span class="text-base font-bold text-[var(--charcoal)] block">Works</span><span class="text-[11px] font-mono text-[var(--slate-muted)]">Featured Case Studies</span></div>
+          <span class="text-xs font-mono text-[var(--slate-muted)]">01</span>
+        </a>
+        <a href="#capabilities" onclick="document.getElementById('mobile-drawer').classList.add('hidden')" class="py-3.5 flex items-center justify-between">
+          <div><span class="text-base font-bold text-[var(--charcoal)] block">Capabilities</span><span class="text-[11px] font-mono text-[var(--slate-muted)]">UX, UI & Design Systems</span></div>
+          <span class="text-xs font-mono text-[var(--slate-muted)]">02</span>
+        </a>
+        <a href="#about" onclick="document.getElementById('mobile-drawer').classList.add('hidden')" class="py-3.5 flex items-center justify-between">
+          <div><span class="text-base font-bold text-[var(--charcoal)] block">Behind The Canvas</span><span class="text-[11px] font-mono text-[var(--slate-muted)]">Story & Values</span></div>
+          <span class="text-xs font-mono text-[var(--slate-muted)]">03</span>
+        </a>
+        <a href="/Amos-Osaze-Abu-Resume.pdf" target="_blank" onclick="document.getElementById('mobile-drawer').classList.add('hidden')" class="py-3.5 flex items-center justify-between">
+          <div><span class="text-base font-bold text-[var(--charcoal)] block">Resume (CV) ↗</span><span class="text-[11px] font-mono text-[var(--slate-muted)]">Official PDF • 4 Yrs Exp</span></div>
+          <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-[var(--surface-stone)] border border-[var(--border-subtle)]">PDF</span>
+        </a>
+        <a href="https://wa.me/2348138265592?text=Hi%20Amos!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20a%20project%20with%20you." target="_blank" rel="noopener noreferrer" onclick="document.getElementById('mobile-drawer').classList.add('hidden')" class="py-3.5 flex items-center justify-between">
+          <div><span class="text-base font-bold text-[#25D366] block">Chat on WhatsApp ↗</span><span class="text-[11px] font-mono text-[var(--slate-muted)]">Direct chat with pre-filled intro</span></div>
+          <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-[#25D366]/10 text-[#25D366] font-semibold">Instant</span>
+        </a>
+      </div>
+      <div class="mt-6 pt-4 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs font-mono text-[var(--slate-muted)]">
+        <span>● Availability: Worldwide (Remote)</span>
+        <span>© 2026</span>
+      </div>
+    </div>
   </header>
 
   <!-- 1. HERO SECTION (Reduced Typography Scale) -->
-  <main class="max-w-7xl mx-auto px-6 pt-16 pb-20">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-20">
     <div class="max-w-4xl">
       <!-- Eyebrow Pill -->
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--surface-stone)] border border-[var(--border-subtle)] text-xs font-mono mb-8">

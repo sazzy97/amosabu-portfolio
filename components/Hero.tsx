@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <section className="max-w-7xl mx-auto px-6 pt-16 pb-20">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-20">
       <div className="max-w-4xl">
         {/* Eyebrow Tag */}
         <motion.div
