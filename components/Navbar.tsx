@@ -40,7 +40,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40 w-full bg-[var(--bg-cream)]/90 backdrop-blur-md border-b border-[var(--border-subtle)] transition-colors">
+      <header className="fixed top-0 left-0 right-0 z-50 w-full bg-[var(--bg-cream)]/95 backdrop-blur-md border-b border-[var(--border-subtle)] transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between text-sm">
           {/* Brand Wordmark */}
           <Link
@@ -116,7 +116,7 @@ export default function Navbar() {
               type="button"
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? "Close menu" : "Open menu"}
-              className="w-9 h-9 rounded-full border border-[var(--border-subtle)] bg-[var(--surface-stone)]/80 flex items-center justify-center text-[var(--charcoal)] hover:bg-[var(--surface-stone)] active:scale-95 transition-all"
+              className="w-9 h-9 rounded-full border border-[var(--border-subtle)] bg-[var(--surface-stone)] flex items-center justify-center text-[var(--charcoal)] hover:bg-[var(--surface-stone)] active:scale-95 transition-all"
             >
               {isOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
@@ -128,24 +128,24 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop Dimmer */}
+            {/* Backdrop Dimmer (Sitting underneath the menu at z-40) */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={closeMenu}
-              className="md:hidden fixed inset-0 z-30 bg-black/40 backdrop-blur-sm"
+              className="md:hidden fixed inset-0 z-40 bg-black/60"
               style={{ top: "4rem" }}
             />
 
-            {/* Slide-Down Menu Content */}
+            {/* Slide-Down Menu Content (Sitting on top at z-50, solid opaque background, crisp text) */}
             <motion.div
               initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className="md:hidden fixed top-16 left-0 right-0 z-35 bg-[var(--bg-cream)] border-b border-[var(--border-subtle)] shadow-2xl px-6 py-6 overflow-y-auto max-h-[calc(100vh-4rem)] transition-colors"
+              className="md:hidden fixed top-16 sm:top-20 left-0 right-0 z-50 bg-[var(--bg-cream)] border-b border-[var(--border-subtle)] shadow-2xl px-6 py-6 overflow-y-auto max-h-[calc(100vh-4.5rem)] text-[var(--charcoal)] transition-colors"
             >
               <div className="flex flex-col gap-1 divide-y divide-[var(--border-subtle)]">
                 <a
@@ -219,26 +219,6 @@ export default function Navbar() {
                   </div>
                   <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-[var(--surface-stone)] border border-[var(--border-subtle)] text-[var(--charcoal)]">
                     PDF
-                  </span>
-                </a>
-
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMenu}
-                  className="py-3.5 flex items-center justify-between group"
-                >
-                  <div>
-                    <span className="text-base font-bold text-[#25D366] group-hover:underline flex items-center gap-1.5">
-                      Chat on WhatsApp ↗
-                    </span>
-                    <span className="text-[11px] font-mono text-[var(--slate-muted)]">
-                      Direct casual chat with pre-filled intro
-                    </span>
-                  </div>
-                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-[#25D366]/10 text-[#25D366] font-semibold">
-                    Instant
                   </span>
                 </a>
 
